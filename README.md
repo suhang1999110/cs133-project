@@ -19,8 +19,8 @@
 3. Free to add alternative classification tasks
      * Stick to simple cases with "standard" networks
 
-**reference:
-***Github
+##reference:
+**Github:**
 - [C++ implementation of multi-layer feed forward neural networks with back propagation algorithm.](https://github.com/alelouis/Feed-Forward-Neural-Network)
 
 - [A header-only C++ library for deep neural networks](https://github.com/yixuan/MiniDNN)
@@ -29,7 +29,7 @@
 - [C++ json](https://github.com/nlohmann/json)
 
 -----
-***Blog
+**Blog**
 - [Neural Network introduction](https://blog.csdn.net/u014162133/article/details/81181194)
 - [CNN introduction](http://www.cnblogs.com/fydeblog/p/7450413.html)
 - [LeNet5 introduction](https://www.cnblogs.com/ranjiewen/articles/7467600.html)
@@ -37,13 +37,13 @@
 - [save keras model](https://blog.csdn.net/cymy001/article/details/78647640)
 
 -----
-***Documents
+**Documents**
 - [keras](https://keras-cn.readthedocs.io/en/latest/)
 - [Doxygen](http://www.doxygen.nl/)
 - [JSON](https://nlohmann.github.io/json/)
 - [HDF5](https://portal.hdfgroup.org/display/HDF5)
 
 -----
-***Resources
+**Resources**
 - [MNIST DATABASE](http://yann.lecun.com/exdb/mnist/)
-- [MNIST jpg](https://www.kaggle.com/scolianni/mnistasjpg)
+- [MNIST images](https://www.kaggle.com/scolianni/mnistasjpg)
