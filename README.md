@@ -19,7 +19,7 @@
 3. Free to add alternative classification tasks
      * Stick to simple cases with "standard" networks
 
-##reference:
+## reference:
 
 **Github:**
 - [C++ implementation of multi-layer feed forward neural networks with back propagation algorithm.](https://github.com/alelouis/Feed-Forward-Neural-Network)
