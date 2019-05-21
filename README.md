@@ -20,6 +20,7 @@
      * Stick to simple cases with "standard" networks
 
 ##reference:
+
 **Github:**
 - [C++ implementation of multi-layer feed forward neural networks with back propagation algorithm.](https://github.com/alelouis/Feed-Forward-Neural-Network)
 
