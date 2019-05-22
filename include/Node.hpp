@@ -3,12 +3,14 @@
 
 #include <Eigen/Core>
 
+// Node is the basic computing unit
 class Node{
  public:
   Node();
   ~Node();
+  
  private:
-  Eigen::VectorXd node;   
+  Eigen::VectorXd node;
 }
 
 #endif // CS133_NODE_HPP

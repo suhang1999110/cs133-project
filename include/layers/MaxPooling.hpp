@@ -1,3 +1,6 @@
+// TO-DO
+// The max pooling layer
+// a child class of layer
 #ifndef CS133_LAYER_DENSE_HPP
 #define CS133_LAYER_DENSE_HPP
 

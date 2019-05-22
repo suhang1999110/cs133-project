@@ -10,12 +10,13 @@ class Layer{
  public:
   Layer();
   virtual ~Layer();
+  // initialize the parameters (including input size, output size, number of nodes etc.)
   virtual void init() = 0;
-  // forward propagation
+  // compute the output of this layer
   virtual void forward() = 0;
-  // in_size getter
+  // get the size of input
   int in_size() const;
-  // out_size getter
+  // get the size of output
   int out_size() const;
 
  private:

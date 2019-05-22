@@ -1,3 +1,6 @@
+// TO-DO
+// The Sigmoid activation function
+// a child class of layer
 #ifndef CS133_SIGMOID_HPP
 #define CS133_SIGMOID_HPP
 
