@@ -3,8 +3,8 @@
 
 #include <Eigen/Core>
 #include <vector>
+#include "Layer.hpp"
 
-template <typename Activation>
 class Dense : class Layer{
  public:
   Dense();

@@ -8,7 +8,7 @@ class Node{
   Node();
   ~Node();
  private:
-  Eigen::Matrix<>   
+  Eigen::VectorXd node;   
 }
 
 #endif // CS133_NODE_HPP

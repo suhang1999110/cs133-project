@@ -10,6 +10,8 @@ class Net : class Layer{
   ~Net();
   void init();
   void forward();
+  void add_layer();
+  size_t num_layers();
 
  private:
   std::list<Layer> layers;
