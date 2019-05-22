@@ -19,6 +19,18 @@
 3. Free to add alternative classification tasks
      * Stick to simple cases with "standard" networks
 
+## Roadmap:
+
+[x] Build and train model in Python
+
+[ ] Convert model into JSON file
+
+[x] Build model framework in C++
+
+[ ] Initialize the neural network with JSON file
+
+[ ] Test the neural network with given images
+
 ## reference:
 
 **Github:**
@@ -49,3 +61,4 @@
 **Resources**
 - [MNIST DATABASE](http://yann.lecun.com/exdb/mnist/)
 - [MNIST images](https://www.kaggle.com/scolianni/mnistasjpg)
+- [CS231N](http://cs231n.github.io/convolutional-networks/)
