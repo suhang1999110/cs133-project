@@ -21,15 +21,15 @@
 
 ## Roadmap:
 
-[x] Build and train model in Python
+:heavy_check_mark: Build and train model in Python
 
-[ ] Convert model into JSON file
+:heavy_minus_sign: Convert model into JSON file
 
-[x] Build model framework in C++
+:heavy_check_mark: Build model framework in C++
 
-[ ] Initialize the neural network with JSON file
+:heavy_minus_sign: Initialize the neural network with JSON file
 
-[ ] Test the neural network with given images
+:heavy_minus_sign: Test the neural network with given images
 
 ## reference:
 
