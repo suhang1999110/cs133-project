@@ -20,7 +20,12 @@ int main(){
 
   cv2eigen(img, input);
 
-  net.forward()
+  net.set_input(input);
+  net.forward();
+
+  Eigen::MatrixXd output = net.output();
+
+  std::cout<<"Output:\n"<<output;
 
   return 0;
 }

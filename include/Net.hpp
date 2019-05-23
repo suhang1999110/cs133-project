@@ -31,6 +31,9 @@ class Net{
   // read weights from given path
   void load_weights(const std::string & path);
 
+  // set input layer with given matrix
+  void set_input(const Eigen::MatrixXd & input);
+
   // return output
   Eigen::MatrixXd output() const;
 
