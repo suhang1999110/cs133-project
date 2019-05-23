@@ -6,7 +6,9 @@
 // Node is the basic computing unit
 class Node{
  public:
+
   Node();
+ 
   ~Node();
   
  private:
