@@ -6,6 +6,7 @@
 
 #include <Eigen/Core>
 #include <vector>
+#include "Layer.hpp"
 
 class Pooling : class Layer
 {
