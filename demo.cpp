@@ -1,6 +1,6 @@
 // demo will be presented on 31st May
 
-#include "Net.hpp"
+#include "include/Net.hpp"
 #include <iostream>
 #include <string>
 #include <opencv2/opencv.hpp>
@@ -20,8 +20,7 @@ int main(){
 
   cv2eigen(img, input);
 
-  net.set_input(input);
-  net.forward();
+  net.forward(input);
 
   Eigen::MatrixXd output = net.output();
 

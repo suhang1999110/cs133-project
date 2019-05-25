@@ -21,10 +21,10 @@ class Net{
   void init(const std::string & model_path, const std::string & weights_path);
   
   // compute the ouput of the entire network
-  void forward();
+  void forward(const Eigen::MatrixXd & input);
   
   // add a layer to the network
-  void add_layer(const Layer & layer);
+  void add_layer(Layer * layer);
   
   // read model from given path
   void load_model(const std::string & path);
@@ -32,29 +32,19 @@ class Net{
   // read weights from given path
   void load_weights(const std::string & path);
 
-  // set input layer with given matrix
-  void set_input(const Eigen::MatrixXd & input);
-
   // return output
   Eigen::MatrixXd output() const;
 
-  // return output
-  Eigen::MatrixXd input() const;
-  
   // return the number of layers
   size_t num_layers() const;
   
-  // return the name of this net
-  const std::string & get_name() const;
 
  private:
   // all hidden layers
-  std::vector<Layer*> layers;
-  // input layer
-  Layer inputLayer;
+  std::vector<Layer*> m_layers;
   // output layer
-  Layer outputLayer;
-}
+  Layer m_outputLayer;
+};
 
 #include "net.hpp"
 
