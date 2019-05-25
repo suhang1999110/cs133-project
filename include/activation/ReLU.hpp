@@ -27,4 +27,6 @@ class Relu : public Layer{
  	const int out_size;  
 }
 
+#include "reLU.hpp"
+
 #endif // CS133_RELU_HPP
