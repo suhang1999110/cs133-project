@@ -13,7 +13,7 @@ int main(){
   std::string input_path("test/");
   // LeNet-5
   Net net;
-  net.init(model_path, weights_path, "LeNet-5");
+  net.init(model_path, weights_path);
   // 
   cv::Mat img = cv::imread(input_path);
   Eigen::MatrixXd input(img.cols, img.rows);

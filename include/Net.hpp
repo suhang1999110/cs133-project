@@ -16,8 +16,9 @@ class Net{
   ~Net();
   
   // initialzie all the hidden layers with given the path of model and weights
+  // JSON format by default
   // a wrapper of load_model() and load_weights
-  void init(const std::string & model_path, const std::string & weights_path, const std::string & name = "Net");
+  void init(const std::string & model_path, const std::string & weights_path);
   
   // compute the ouput of the entire network
   void forward();
@@ -48,13 +49,11 @@ class Net{
 
  private:
   // all hidden layers
-  std::vector<Layer> layers;
+  std::vector<Layer*> layers;
   // input layer
   Layer inputLayer;
   // output layer
   Layer outputLayer;
-  // the name of this net (default "Net")
-  std::string name;
 }
 
 #include "net.hpp"
