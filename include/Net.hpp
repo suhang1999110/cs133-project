@@ -57,4 +57,6 @@ class Net{
   std::string name;
 }
 
+#include "net.hpp"
+
 #endif // CS133_NET_HPP
