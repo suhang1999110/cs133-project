@@ -24,7 +24,7 @@ class Net{
   void forward();
   
   // add a layer to the network
-  void add_layer();
+  void add_layer(const Layer & layer);
   
   // read model from given path
   void load_model(const std::string & path);

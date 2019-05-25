@@ -8,7 +8,7 @@
 #include <vector>
 #include "Layer.hpp"
 
-class Dense : class Layer{
+class Dense : public Layer{
  public:
   Dense();
   ~Dense();
