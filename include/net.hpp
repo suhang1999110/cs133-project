@@ -60,8 +60,8 @@ Net::load_model(const std::string & path){
         layer->init(jsonLayers[i]["config"]["batch_input_shape"][1].get_number(),
                     jsonLayers[i]["config"]["batch_input_shape"][2].get_number(),
                     jsonLayers[i]["config"]["filters"].get_number(),
-                    jsonLayers[i]["config"][0].get_number(),
-                    jsonLayers[i]["config"][1].get_number(),
+                    jsonLayers[i]["config"]["kernel_size"][0].get_number(),
+                    jsonLayers[i]["config"]["kernel_size"][1].get_number(),
                     jsonLayers[i]["config"]["activation"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);

@@ -6,23 +6,12 @@
 
 #include "Layer.hpp"
 
-class Softmax : public Layer{
+class Softmax : public Layer {
 public:
 	Softmax();
 	~Softmax();
-	void init(Eigen::MatrixXd input_matrix);
+	void init();
 	void forward();
-
-private:
-	size_t node_num;
-
-	Eigen::MatrixXd input;
-
-	Eigen::MatrixXd output;
-
-	const int in_size;
-
-	const int out_size;
 };
 
 #include "softmax.hpp"

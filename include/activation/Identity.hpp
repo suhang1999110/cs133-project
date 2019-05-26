@@ -6,23 +6,12 @@
 
 #include "Layer.hpp"
 
-class Identity : public Layer{
+class Identity : public Layer {
 public:
 	Identity();
 	~Identity();
-	void init(Eigen::MatrixXd input_matrix);
+	void init();
 	void forward();
-
-private:
-	size_t node_num;
-
-	Eigen::MatrixXd input;
-
-	Eigen::MatrixXd output;
-
-	const int in_size;
-	
-	const int out_size;
 };
 
 #include "identity.hpp"

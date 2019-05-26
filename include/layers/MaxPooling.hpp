@@ -1,23 +1,19 @@
 // TO-DO
 // The max pooling layer
 // a child class of layer
-#ifndef CS133_LAYER_DENSE_HPP
-#define CS133_LAYER_DENSE_HPP
+#ifndef CS133_LAYER_MAXPOOLING_HPP
+#define CS133_LAYER_MAXPOOLING_HPP
 
-#include <Eigen/Core>
-#include <vector>
 #include "Layer.hpp"
 
-class Pooling : class Layer
-{
- public:
-  Pooling();
-  ~Pooling();
-  void init();
-  void forward();
- 
- private:
-  size_t node_num;
+class MaxPooling : public Layer {
+public:
+    Pooling();
+    ~Pooling();
+    void init(Eigen::Matrix input_matrix);
+    void forward();
 };
+
+#include "maxPooling.hpp"
 
 #endif

@@ -6,23 +6,12 @@
 
 #include "Layer.hpp"
 
-class Sigmoid : public Layer{
- public:
-  Sigmoid();
-  ~Sigmoid();
-  void init(Eigen::MatrixXd input_matrix);
-  void forward();
-
- private:
- 	size_t node_num;
-
- 	Eigen::MatrixXd input;
-
- 	Eigen::MatrixXd output;
-
- 	const int in_size;
-
- 	const int out_size;
+class Sigmoid : public Layer {
+public:
+    Sigmoid();
+    ~Sigmoid();
+    void init();
+    void forward();
 }
 
 #include "sigmoid.hpp"
