@@ -49,10 +49,15 @@ model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=['accura
 model.fit(x_train, y_train, batch_size=64, epochs=5, validation_data=(x_test,y_test))
 
 # save model
-# model.save('model.h5')
+model.save('model.h5')
 model.save_weights('weights.h5')
 with open('model.json', 'w') as json:
     json.write(model.to_json())
+
+# save weights
+
+# with open('weights.json','w') as f:
+    
 
 # evaluate test
 score = model.evaluate(x_test, y_test)
