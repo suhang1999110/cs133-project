@@ -26,6 +26,16 @@ Layer::num_node() const {
   return m_node_num;
 }
 
+int
+Layer::row() const {
+    return m_row;
+}
+
+int
+Layer::col() const {
+    return m_col;
+}
+
 size_t
 Layer::in_size() const {
   return m_in_size;

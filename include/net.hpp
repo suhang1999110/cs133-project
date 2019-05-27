@@ -56,19 +56,18 @@ Net::load_model(const std::string & path){
 
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
       case "Conv2D":
-        layer = new Conv();
+        layer = new Convolutional();
         layer->init(jsonLayers[i]["config"]["batch_input_shape"][1].get_number(),
                     jsonLayers[i]["config"]["batch_input_shape"][2].get_number(),
                     jsonLayers[i]["config"]["filters"].get_number(),
-                    jsonLayers[i]["config"]["kernel_size"][0].get_number(),
-                    jsonLayers[i]["config"]["kernel_size"][1].get_number(),
-                    jsonLayers[i]["config"]["activation"].get_string(),
+                    jsonLayers[i]["config"]["kernel_size"][0].get_number();
+                    jsonLayers[i]["config"]["kernel_size"][1].get_number();
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;
 
       case "MaxPooling2D":
-        layer = new Pooling();
+        layer = new MaxPooling();
         layer->init(jsonLayers[i]["config"]["pool_size"][0].get_number(),
                     jsonLayers[i]["config"]["pool_size"][1].get_number(),
                     jsonLayers[i]["config"]["padding"][0].get_number(),
