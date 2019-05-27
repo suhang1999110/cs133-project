@@ -13,15 +13,15 @@ Convolutional::init(double row,
                     double node_num,
                     double kernal_row,
                     double kernal_col,
-                    std::string name,
-                    std::string padding) {
+                    std::string padding,
+                    std::string name) {
     m_row = row;
     m_col = col;
     m_node_num = node_num;
     m_kernal_row = kernal_row;
     m_kernal_col = kernal_col;
-    m_name = name;
     m_padding = padding;
+    m_name = name;
     m_type = Conv;
 }
 

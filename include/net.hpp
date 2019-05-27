@@ -62,6 +62,7 @@ Net::load_model(const std::string & path){
                     jsonLayers[i]["config"]["filters"].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][0].get_number();
                     jsonLayers[i]["config"]["kernel_size"][1].get_number();
+                    jsonLayers[i]["config"]["padding"].get_string();
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;
@@ -70,8 +71,7 @@ Net::load_model(const std::string & path){
         layer = new MaxPooling();
         layer->init(jsonLayers[i]["config"]["pool_size"][0].get_number(),
                     jsonLayers[i]["config"]["pool_size"][1].get_number(),
-                    jsonLayers[i]["config"]["padding"][0].get_number(),
-                    jsonLayers[i]["config"]["padding"][1].get_number(),
+                    jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;

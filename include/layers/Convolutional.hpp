@@ -15,16 +15,15 @@ public:
               double node_num,
               double kernal_row,
               double kernal_col,
-              std::string name,
-              std::string padding);
+              std::string padding,
+              std::string name);
     void init(std::vector<std::vector<Eigen::MartixXd>> kernal);
     void forward(std::vector<Eigen::MatrixXd> input, std::vector<double> weight, MatrixXd bias);
 
-protected:
+private:
     std::vector<std::vector<Eigen::MartixXd>> m_kernal;
     int m_kernal_row;
     int m_kernal_col;
-    std::string m_padding;
 };
 
 #include "convolutional.hpp"
