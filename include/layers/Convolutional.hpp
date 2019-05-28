@@ -18,12 +18,10 @@ public:
               std::string padding,
               std::string name);
     void init(std::vector<std::vector<Eigen::MartixXd>> kernel,
-              std::vector<double> weight,
-              Eigen::MatrixXd bias);
+              std::vector<Eigen::MartixXd> bias);
     void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
-    int m_node_num;
     // the row number of the input matrix
     int m_row;
     // the col number of the input matrix
@@ -33,8 +31,7 @@ private:
     int m_kernel_col;
     int m_stride_row;
     int m_stride_col;
-    std::vector<double> m_weight;
-    Eigen::MartixXd m_bias;
+    std::vector<Eigen::MartixXd> m_bias;
     std::string m_padding;
 };
 

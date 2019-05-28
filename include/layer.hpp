@@ -6,6 +6,11 @@ Layer::Layer() {}
 
 Layer::~Layer() {}
 
+int
+Layer::node_num() const {
+    return m_node_num;
+}
+
 std::vector<Eigen::MatrixXd>
 Layer::input() const {
     return m_input;
@@ -28,12 +33,12 @@ Layer::get_name() const {
 
 size_t
 Layer::in_size() const {
-  return m_in_size;
+    return m_in_size;
 }
 
 size_t
 Layer::out_size() const {
-  return m_out_size;
+    return m_out_size;
 }
 
 #endif // CS133_LAYER_IMPL_HPP

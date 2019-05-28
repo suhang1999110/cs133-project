@@ -11,12 +11,11 @@ public:
     Dense();
     ~Dense();
     void init(int node_num, std::string name);
-    void init(Eigen::MatrixXd weights, Eigen::MatrixXd bias);
+    void init(Eigen::MatrixXd weight, Eigen::MatrixXd bias);
     void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
-    int m_node_num;
-    Eigen::MatrixXd m_weights;
+    Eigen::MatrixXd m_weight;
     Eigen::MatrixXd m_bias;
 };
 

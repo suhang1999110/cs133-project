@@ -17,7 +17,7 @@ MaxPooling::init(double pool_row,
     m_pool_col = pool_col;
     m_padding = padding;
     m_name = name;
-    m_type = Pooling;
+    m_type = Layer::Pooling;
 }
 
 void
