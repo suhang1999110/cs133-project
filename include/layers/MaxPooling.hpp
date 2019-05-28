@@ -17,6 +17,10 @@ public:
     void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
+    // the row number of the input matrix
+    int m_row;
+    // the col number of the input matrix
+    int m_col;
     int m_pool_row;
     int m_pool_col;
     std::string m_padding;

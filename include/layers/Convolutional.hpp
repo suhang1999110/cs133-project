@@ -17,15 +17,24 @@ public:
               double stride_col,
               std::string padding,
               std::string name);
-    void init(std::vector<std::vector<Eigen::MartixXd>> kernel);
-    void forward(std::vector<Eigen::MatrixXd> input, std::vector<double> weight, MatrixXd bias);
+    void init(std::vector<std::vector<Eigen::MartixXd>> kernel,
+              std::vector<double> weight,
+              Eigen::MatrixXd bias);
+    void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
+    int m_node_num;
+    // the row number of the input matrix
+    int m_row;
+    // the col number of the input matrix
+    int m_col;
     std::vector<std::vector<Eigen::MartixXd>> m_kernel;
     int m_kernel_row;
     int m_kernel_col;
     int m_stride_row;
     int m_stride_col;
+    std::vector<double> m_weight;
+    Eigen::MartixXd m_bias;
     std::string m_padding;
 };
 

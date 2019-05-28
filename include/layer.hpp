@@ -6,6 +6,16 @@ Layer::Layer() {}
 
 Layer::~Layer() {}
 
+std::vector<Eigen::MatrixXd>
+Layer::input() const {
+    return m_input;
+}
+
+std::vector<Eigen::MatrixXd>
+Layer::output() const {
+    return m_output;
+}
+
 Layer::layerType
 Layer::get_type() const {
     return m_type;
@@ -14,26 +24,6 @@ Layer::get_type() const {
 std::string
 Layer::get_name() const {
     return m_name;
-}
-
-Eigen::MatrixXd
-Layer::output() const {
-    return m_output;
-}
-
-size_t
-Layer::num_node() const {
-  return m_node_num;
-}
-
-int
-Layer::row() const {
-    return m_row;
-}
-
-int
-Layer::col() const {
-    return m_col;
 }
 
 size_t

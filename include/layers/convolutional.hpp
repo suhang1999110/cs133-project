@@ -26,18 +26,22 @@ Convolutional::init(double node_num,
 }
 
 void
-Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel) {
+Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel,
+                    std::vector<double> weight,
+                    Eigen::MatrixXd bias) {
     m_kernel = kernel;
+    m_weight = weight;
+    m_bias = bias;
 }
 
 void
-Convolutional::forward(std::vector<Eigen::MatrixXd> input, std::vector<double> weight, MatrixXd bias) {
+Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     // how many pictures being input
     m_in_size = input.size();
     // deal with the input (need padding or not)
     if ( m_padding = "valid" ) {
         for (int i = 0; i < m_in_size; ++i) {
-            MatrixXd image = Eigen::MatrixXd::Zero(m_row + 4, m_col + 4);
+            Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row + 4, m_col + 4);
             image.block<m_row, m_col>(2, 2) += input[i];
             m_input.push_back(image);
         }
@@ -50,23 +54,23 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input, std::vector<double> w
 
     // compute the convolution
     for (int node = 0; node < m_node_num; ++node) {
-        MatrixXd node_output(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
+        Eigen::MatrixXd node_output(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
         for (int image = 0; image < m_in_size; ++image) {
-            MatrixXd cov_result(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
+            Eigen::MatrixXd cov_result(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
             for (int row = 0; row < m_row - m_kernel_row + 1; row += m_stride_row) {
                 for (int col = 0; col < m_col - m_kernel_col + 1; col += m_stride_col) {
                     double accumulation = 0;
                     for (int i = 0; i < m_kernel_row; ++i) {
                         for (int j = 0; j < m_kernel_col; ++j) {
-                            accumulation += kernel[node][image](i, j) * m_input[image](row + i, col + j);
+                            accumulation += m_kernel[node][image](i, j) * m_input[image](row + i, col + j);
                         }
                     }
                     cov_result(row, col) = accumulation;
                 }
             }
-            node_output += weight[image] * cov_result;
+            node_output += m_weight[image] * cov_result;
         }
-        node_output += bias;
+        node_output += m_bias;
         m_output.push_back(node_output);
     }
 

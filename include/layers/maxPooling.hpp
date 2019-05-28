@@ -28,7 +28,7 @@ MaxPooling::forward(std::vector<Eigen::MatrixXd> input) {
     m_col = m_input[0].cols();
 
     for (int image = 0; image < m_in_size; ++image) {
-        MatrixXd pool_result((m_row / m_pool_row), (m_col / m_pool_col));
+        Eigen::MatrixXd pool_result((m_row / m_pool_row), (m_col / m_pool_col));
         for (int row = 0; row < m_row; row += m_pool_row) {
             for (int col = 0; col < m_col; col += m_pool_col) {
                 pool_result((row / m_pool_row), (col / m_pool_col)) = m_input[image].block<m_pool_row, m_pool_col>(row, col).maxCoeff();
@@ -36,7 +36,6 @@ MaxPooling::forward(std::vector<Eigen::MatrixXd> input) {
         }
         m_output.push_back(pool_result);
     }
-
     m_out_size = m_output.size();
 }
 

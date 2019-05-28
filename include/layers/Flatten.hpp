@@ -7,8 +7,12 @@ public:
     ~Flatten();
     void init(std::string name);
     void forward(std::vector<Eigen::MatrixXd> input);
+
 private:
-    std::vector<double> m_output;
+    // the row number of the input matrix
+    int m_row;
+    // the col number of the input matrix
+    int m_col;
 };
 
 #endif
