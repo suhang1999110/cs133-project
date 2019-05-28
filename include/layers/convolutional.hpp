@@ -8,26 +8,26 @@ Convolutional::Convolutional() {}
 Convolutional::~Convolutional() {}
 
 void
-Convolutional::init(double row,
-                    double col,
-                    double node_num,
-                    double kernal_row,
-                    double kernal_col,
+Convolutional::init(double node_num,
+                    double kernel_row,
+                    double kernel_col,
+                    double stride_row,
+                    double stride_col,
                     std::string padding,
                     std::string name) {
-    m_row = row;
-    m_col = col;
     m_node_num = node_num;
-    m_kernal_row = kernal_row;
-    m_kernal_col = kernal_col;
+    m_kernel_row = kernel_row;
+    m_kernel_col = kernel_col;
+    m_stride_row = stride_row;
+    m_stride_col = stride_col;
     m_padding = padding;
     m_name = name;
     m_type = Conv;
 }
 
 void
-Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernal) {
-    m_kernal = kernal;
+Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel) {
+    m_kernel = kernel;
 }
 
 void
@@ -45,18 +45,20 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input, std::vector<double> w
     else if ( m_padding = "same" ) {
         m_input = input;
     }
+    m_row = m_input[0].rows();
+    m_col = m_input[0].cols();
 
     // compute the convolution
     for (int node = 0; node < m_node_num; ++node) {
-        MatrixXd node_output(m_row - m_kernal_row + 1, m_col - m_kernal_col + 1);
+        MatrixXd node_output(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
         for (int image = 0; image < m_in_size; ++image) {
-            MatrixXd cov_result(m_row - m_kernal_row + 1, m_col - m_kernal_col + 1);
-            for (int row = 0; row < m_row - m_kernal_row + 1; ++row) {
-                for (int col = 0; col < m_col - m_kernal_col + 1; ++col) {
+            MatrixXd cov_result(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
+            for (int row = 0; row < m_row - m_kernel_row + 1; row += m_stride_row) {
+                for (int col = 0; col < m_col - m_kernel_col + 1; col += m_stride_col) {
                     double accumulation = 0;
-                    for (int i = 0; i < m_kernal_row; ++i) {
-                        for (int j = 0; j < m_kernal_col; ++j) {
-                            accumulation += kernal[node][image](i, j) * m_input[image](row + i, col + j);
+                    for (int i = 0; i < m_kernel_row; ++i) {
+                        for (int j = 0; j < m_kernel_col; ++j) {
+                            accumulation += kernel[node][image](i, j) * m_input[image](row + i, col + j);
                         }
                     }
                     cov_result(row, col) = accumulation;

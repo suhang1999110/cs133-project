@@ -57,11 +57,11 @@ Net::load_model(const std::string & path){
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
       case "Conv2D":
         layer = new Convolutional();
-        layer->init(jsonLayers[i]["config"]["batch_input_shape"][1].get_number(),
-                    jsonLayers[i]["config"]["batch_input_shape"][2].get_number(),
-                    jsonLayers[i]["config"]["filters"].get_number(),
+        layer->init(jsonLayers[i]["config"]["filters"].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][0].get_number();
                     jsonLayers[i]["config"]["kernel_size"][1].get_number();
+                    jsonLayers[i]["config"]["strides"][0].get_number();
+                    jsonLayers[i]["config"]["strides"][1].get_number();
                     jsonLayers[i]["config"]["padding"].get_string();
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
@@ -84,12 +84,12 @@ Net::load_model(const std::string & path){
         add_layer(layer);
         break;
 
-      // optional
-      // case "Flatten":
-      //   layer = new Flatten();
-      //   layer->init(jsonLayers[i]["config"]["name"].get_string());
-      //   add_layer(layer);
-      //   break;
+
+     case "Flatten":
+        layer = new Flatten();
+        layer->init(jsonLayers[i]["config"]["name"].get_string());
+        add_layer(layer);
+        break;
     }
   }
 }

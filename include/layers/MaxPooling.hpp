@@ -19,6 +19,7 @@ public:
 private:
     int m_pool_row;
     int m_pool_col;
+    std::string m_padding;
 };
 
 #include "maxPooling.hpp"

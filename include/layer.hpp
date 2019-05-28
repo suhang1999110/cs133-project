@@ -16,11 +16,6 @@ Layer::get_name() const {
     return m_name;
 }
 
-std::string
-Layer::get_padding() const {
-    return m_padding;
-}
-
 Eigen::MatrixXd
 Layer::output() const {
     return m_output;

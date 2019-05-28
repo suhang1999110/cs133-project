@@ -61,8 +61,6 @@ protected:
     std::string m_name;
     // layer type (e.g. conv, pooling, dense)
     layerType m_type;
-    // variable indicates whether the input matrix need padding
-    std::string m_padding;
     // the row number of the input matrix
     const int m_row;
     // the col number of the input matrix
