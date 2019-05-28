@@ -19,10 +19,14 @@ def read(fileName):
     f = h5py.File(fileName)
     dic = {}
     for key in list(f.keys()):
-        if key.startswith("conv") or key.startswith("dense"):
-                dic[key] = {}
-                dic[key]["bias"] = list(f[key][key]["bias:0"])
-                dic[key]["weights"] = list(f[key][key]["kernel:0"])
+        if key.startswith("conv"):
+            dic[key] = {}
+            dic[key]["bias"] = list(f[key][key]["bias:0"])
+            dic[key]["weights"] = np.array(list(f[key][key]["kernel:0"])).transpose(3, 2, 0, 1)
+        if key.startswith("dense"):
+            dic[key] = {}
+            dic[key]["bias"] = list(f[key][key]["bias:0"])
+            dic[key]["weights"] = np.array(list(f[key][key]["kernel:0"])).T
     js = json.dumps(dic, cls=NpEncoder)
     with open("weights.json", 'w') as w:
         w.write(js)
