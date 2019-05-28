@@ -13,7 +13,7 @@ public:
     Relu();
     ~Relu();
     void init();
-    void forward();
+    void forward(std::vector<Eigen::MatrixXd> input);
 }
 
 #include "reLU.hpp"

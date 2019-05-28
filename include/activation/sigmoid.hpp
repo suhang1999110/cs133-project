@@ -8,20 +8,18 @@ Sigmoid::Sigmoid(){
 
 Sigmoid::~Sigmoid(){}
 
-void Sigmoid::init(Eigen::MatrixXd input_matrix){
-	input = input_matrix;
-	in_size = input.size();
+void
+Sigmoid::init() {
+    m_type = Layer::Sigmoid;
 }
 
-void Sigmoid::forward(){
-	Eigen::MatrixXd result = input;
-	int col = input.cols();
-	int row = input.rows();
-	for (int i = 0; i < col; ++i) {
-		for (int j = 0; j < row; ++j) {
-			result(j, i) = 1 / (1 + exp(-result(j, i)));
-		}
-	}
-	output = result;
-	out_size = output.size();
+void
+Sigmoid::forward(std::vector<Eigen::MatrixXd> input){
+    m_in_size = input.size();
+    m_input = input;
+
+    for (int i = 0; i < m_in_size; ++i) {
+        m_output.push_back(1 / (1 + (-input[i].array()).exp()));
+    }
+    m_out_size = m_output.size();
 }

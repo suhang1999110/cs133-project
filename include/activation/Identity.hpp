@@ -13,7 +13,7 @@ public:
 	Identity();  ///< Default constructor
 	~Identity();   ///< Destructor
 	void init();   ///< Function of initialize the class
-	void forward();   ///< forward spread of the nework
+	void forward(std::vector<Eigen::MatrixXd> input);   ///< forward spread of the nework
 };
 
 #include "identity.hpp"

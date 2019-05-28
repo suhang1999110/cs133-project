@@ -27,7 +27,7 @@ Convolutional::init(double node_num,
 
 void
 Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel,
-                    std::vector<Eigen::MartixXd> bias) {
+                    std::vector<double> bias) {
     m_kernel = kernel;
     m_bias = bias;
 }
@@ -63,12 +63,11 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
                             accumulation += m_kernel[node][image](i, j) * m_input[image](row + i, col + j);
                         }
                     }
-                    cov_result(row, col) = accumulation;
+                    cov_result(row, col) = accumulation + m_bias[node];
                 }
             }
             node_output += cov_result;
         }
-        node_output += m_bias[node];
         m_output.push_back(node_output);
     }
 

@@ -11,7 +11,7 @@ public:
 	Softmax();
 	~Softmax();
 	void init();
-	void forward();
+	void forward(std::vector<Eigen::MatrixXd> input);
 };
 
 #include "softmax.hpp"

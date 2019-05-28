@@ -11,7 +11,7 @@ public:
     Sigmoid();
     ~Sigmoid();
     void init();
-    void forward();
+    void forward(std::vector<Eigen::MatrixXd> input);
 }
 
 #include "sigmoid.hpp"
