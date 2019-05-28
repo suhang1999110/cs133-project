@@ -1,17 +1,19 @@
-// TO-DO
-// The identity activation function
-// a child class of layer
+///
+///@file this file implement the identity activation function
 #ifndef CS133_IDENTITY_HPP
 #define CS133_IDENTITY_HPP
 
 #include "Layer.hpp"
 
+/// @brief identity activation function
+///
+/// As child class of layer
 class Identity : public Layer {
 public:
-	Identity();
-	~Identity();
-	void init();
-	void forward();
+	Identity();  ///< Default constructor
+	~Identity();   ///< Destructor
+	void init();   ///< Function of initialize the class
+	void forward();   ///< forward spread of the nework
 };
 
 #include "identity.hpp"
