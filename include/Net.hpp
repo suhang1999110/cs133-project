@@ -21,7 +21,8 @@ class Net{
   void init(const std::string & model_path, const std::string & weights_path);
   
   // compute the ouput of the entire network
-  void forward(const Eigen::MatrixXd & input);
+  // return the output matrix
+  Eigen::MatrixXd forward(const Eigen::MatrixXd & input);
   
   // add a layer to the network
   void add_layer(Layer * layer);

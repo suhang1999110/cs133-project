@@ -7,6 +7,9 @@
 #include "layers/Dense.hpp"
 #include "layers/MaxPooling.hpp"
 #include "layers/Flatten.hpp"
+#include "activation/ReLU.hpp"
+#include "activation/Sigmoid.hpp"
+#include "activation/Softmax.hpp"
 #include "../third_party/toy_json/include/toy_json.hpp" // json parser
 #include <Eigen/Core>
 #include <fstream>
@@ -28,14 +31,18 @@ Net::init(const std::string & model_path, const std::string & weights_path){
   load_weights(weights_path);
 }
 
-void
+Eigen::MatrixXd
 Net::forward(const Eigen::MatrixXd & input){
   // pass input to the first layer
   m_layers[0]->forward(input);
+
   // use the previous layer's output as next layer's input
   for(int i = 1;i < num_layers();++i){
     m_layers[i]->forward(m_layers[i-1]->output());
   }
+  
+  // return the output of the last layer
+  return m_layers[num_layers() - 1]->output();
 }
 
 void
@@ -52,9 +59,12 @@ Net::load_model(const std::string & path){
   assert(jsonPtr);
   // layer message in json
   auto jsonLayers = (*jsonPtr)["config"]["layers"];
+
+  // parse each layer message in json
   for(auto i = 0;i < jsonLayers.size();++i){
     Layer * layer = nullptr;
 
+    // determine layer type
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
       case "Conv2D":
         layer = new Convolutional();
@@ -66,6 +76,20 @@ Net::load_model(const std::string & path){
                     jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
+
+        // add activation layer
+        switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
+          case "relu":
+            add_layer(new Relu());
+            break;
+          case "softmax":
+            add_layer(new Softmax());
+            break;
+          case "sigmoid":
+            add_layer(new Sigmoid());
+            break;
+        }
+
         break;
 
       case "MaxPooling2D":
@@ -82,6 +106,20 @@ Net::load_model(const std::string & path){
         layer->init(jsonLayers[i]["config"]["units"].get_number(), 
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
+
+        // add activation layer
+        switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
+          case "relu":
+            add_layer(new Relu());
+            break;
+          case "softmax":
+            add_layer(new Softmax());
+            break;
+          case "sigmoid":
+            add_layer(new Sigmoid());
+            break;
+        }
+
         break;
 
       case "Flatten":
@@ -101,19 +139,41 @@ Net::load_weights(const std::string & path){
   std::unique_ptr<JsonNode> jsonPtr = Json::parse(path);
   assert(jsonPtr);
   for(auto it = m_layers.begin();it != m_layers.end();++it){
+    // get weights and bias array in json
     auto layerWeights = (*jsonPtr)[(*it)->get_name()]["weights"];
     auto layerBias = (*jsonPtr)[(*it)->get_name()]["bias"];
+    
+    // determine layer type
     switch((*it)->get_type()){
-      case Layer::Conv:
+      case Layer::Conv:{
+        // parameters to initialize
+        std::vector<std::vector<Eigen::MatrixXd>> kernel((*it)->node_num(), std::vector<Eigen::MatrixXd>((*it)->in_size(), Eigen::MatrixXd((*it)->kernel_row(), (*it)->kernel_row())));
+        std::vector<double> bias((*it)->node_num());
+
+        // construct kernel from json
+        for(int i = 0;i < (*it)->node_num();++i){
+          for(int j = 0;j < (*it)->node_num();++j){
+            for(int k = 0;k < (*it)->kernel_row();++k){
+              for(int l = 0;l < (*it)->kernel_col();++l){
+                kernel[i][j](k,l) = layerWeights[i][j][k][l].get_number();
+              }
+            }
+          }
+        }
+
+        // construct bias from json
+        for(int i = 0;i < (*it)->node_num();++i){
+          bias[i] = layerBias[i].get_number();
+        }
 
         break;
-      case Layer::Pooling:
-        
-        break;
+      }
       case Layer::Dense:{
-        Eigen::MatrixXd weights((*it)->num_node(), (*it)->node_size());
-        Eigen::VectorXd bias((*it)->num_node());
-        for(size_t i = 0;i < (*it)->num_node();++i){
+        // parameters to initialize
+        Eigen::MatrixXd weights((*it)->node_num(), (*it)->node_size());
+        Eigen::MatrixXd bias((*it)->node_num(), 1);
+        
+        for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->node_size();++j){
             weights(i,j) = layerWeights[i][j].get_number();
@@ -124,9 +184,6 @@ Net::load_weights(const std::string & path){
         (*it)->init(weights, bias);
         break;
       }
-      // optional
-      // case Layer::Flatten:
-      //   break;
     }
   }
 }
