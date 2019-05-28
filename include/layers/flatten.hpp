@@ -8,7 +8,7 @@ Flatten::~Flatten() {}
 void
 Flatten::init(std::string name) {
     m_name = name;
-    m_type = Flatten;
+    m_type = Layer::Flatten;
 }
 
 void

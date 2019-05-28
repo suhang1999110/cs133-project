@@ -11,12 +11,12 @@ void
 Dense::init(int node_num, std::string name) {
     m_node_num = node_num;
     m_name = name;
-    m_type = Dense;
+    m_type = Layer::Dense;
 }
 
 void
-Dense::init(Eigen::MatrixXd weights, Eigen::MatrixXd bias) {
-    m_weights = weights;
+Dense::init(Eigen::MatrixXd weight, Eigen::MatrixXd bias) {
+    m_weight = weight;
     m_bias = bias;
 }
 
@@ -25,7 +25,7 @@ Dense::forward(std::vector<Eigen::MatrixXd> input) {
     m_in_size = 1;
     m_input = input;
 
-    m_output.push_back(m_weights * m_input[0] + m_bias);
+    m_output.push_back(m_weight * m_input[0] + m_bias);
     m_out_size = 1;
 }
 
