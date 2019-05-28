@@ -8,10 +8,22 @@
 
 class MaxPooling : public Layer {
 public:
-    Pooling();
-    ~Pooling();
-    void init(Eigen::Matrix input_matrix);
-    void forward();
+    MaxPooling();
+    ~MaxPooling();
+    void init(double pool_row,
+              double pool_col,
+              std::string padding,
+              std::string name);
+    void forward(std::vector<Eigen::MatrixXd> input);
+
+private:
+    // the row number of the input matrix
+    int m_row;
+    // the col number of the input matrix
+    int m_col;
+    int m_pool_row;
+    int m_pool_col;
+    std::string m_padding;
 };
 
 #include "maxPooling.hpp"

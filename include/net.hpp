@@ -6,6 +6,7 @@
 #include "layers/Convolutional.hpp"
 #include "layers/Dense.hpp"
 #include "layers/MaxPooling.hpp"
+#include "layers/Flatten.hpp"
 #include "../third_party/toy_json/include/toy_json.hpp" // json parser
 #include <Eigen/Core>
 #include <fstream>
@@ -56,23 +57,22 @@ Net::load_model(const std::string & path){
 
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
       case "Conv2D":
-        layer = new Conv();
-        layer->init(jsonLayers[i]["config"]["batch_input_shape"][1].get_number(),
-                    jsonLayers[i]["config"]["batch_input_shape"][2].get_number(),
-                    jsonLayers[i]["config"]["filters"].get_number(),
+        layer = new Convolutional();
+        layer->init(jsonLayers[i]["config"]["filters"].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][0].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][1].get_number(),
-                    jsonLayers[i]["config"]["activation"].get_string(),
+                    jsonLayers[i]["config"]["strides"][0].get_number(),
+                    jsonLayers[i]["config"]["strides"][1].get_number(),
+                    jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;
 
       case "MaxPooling2D":
-        layer = new Pooling();
+        layer = new MaxPooling();
         layer->init(jsonLayers[i]["config"]["pool_size"][0].get_number(),
                     jsonLayers[i]["config"]["pool_size"][1].get_number(),
-                    jsonLayers[i]["config"]["padding"][0].get_number(),
-                    jsonLayers[i]["config"]["padding"][1].get_number(),
+                    jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;
@@ -80,17 +80,15 @@ Net::load_model(const std::string & path){
       case "Dense":
         layer = new Dense();
         layer->init(jsonLayers[i]["config"]["units"].get_number(), 
-                    jsonLayers[i]["config"]["activation"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         add_layer(layer);
         break;
 
-      // optional
-      // case "Flatten":
-      //   layer = new Flatten();
-      //   layer->init(jsonLayers[i]["config"]["name"].get_string());
-      //   add_layer(layer);
-      //   break;
+      case "Flatten":
+        layer = new Flatten();
+        layer->init(jsonLayers[i]["config"]["name"].get_string());
+        add_layer(layer);
+        break;
     }
   }
 }

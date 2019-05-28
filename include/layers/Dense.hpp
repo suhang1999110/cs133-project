@@ -10,8 +10,13 @@ class Dense : public Layer {
 public:
     Dense();
     ~Dense();
-    void init();
-    void forward();
+    void init(int node_num, std::string name);
+    void init(Eigen::MatrixXd weight, Eigen::MatrixXd bias);
+    void forward(std::vector<Eigen::MatrixXd> input);
+
+private:
+    Eigen::MatrixXd m_weight;
+    Eigen::MatrixXd m_bias;
 };
 
 #include "dense.hpp"
