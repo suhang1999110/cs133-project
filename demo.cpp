@@ -3,6 +3,8 @@
 #include "include/Net.hpp"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <Eigen/Core>
 // #include <opencv2/opencv.hpp>
 // #include <opencv2/core/eigen.hpp>
 
@@ -19,6 +21,17 @@ int main(){
   // Eigen::MatrixXd input(img.cols, img.rows);
 
   // cv2eigen(img, input);
+
+  std::ifstream fin(input_path);
+
+  Eigen::MatrixXd input(28, 28);
+  for(int i = 0;i < 28;++i){
+    for(int j = 0;j < 28;++j){
+      double buffer;
+      fin>>buffer;
+      input(i,j) = buffer / 256.0;
+    }
+  }
 
   
 
