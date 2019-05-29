@@ -47,7 +47,7 @@ int main(){
 
     Eigen::MatrixXd output = net.forward(input);
 
-    int result = 0;
+    int result;
     int err = 10;
     for(int i = 0; i < 10; ++i) {
       if ( abs(output(i, 0) - 1) < err ) {

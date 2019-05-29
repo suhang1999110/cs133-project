@@ -2,11 +2,9 @@
 // Sigmoid activation function
 
 
-Sigmoid::Sigmoid(){
-	// Not sure what to implement
-}
+Sigmoid::Sigmoid() {}
 
-Sigmoid::~Sigmoid(){}
+Sigmoid::~Sigmoid() {}
 
 void
 Sigmoid::init(int cur_in_size,
@@ -25,9 +23,6 @@ Sigmoid::init(int cur_in_size,
 
 void
 Sigmoid::forward(std::vector<Eigen::MatrixXd> input){
-    //m_input.clear();
-    //m_output.clear();
-
     m_in_size = input.size();
     m_input = input;
 

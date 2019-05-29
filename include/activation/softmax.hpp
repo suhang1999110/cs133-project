@@ -1,5 +1,5 @@
 // Implementation of the
-// Softmax activation funxtion
+// Softmax activation function
 
 Softmax::Softmax() {}
 
@@ -22,9 +22,6 @@ Softmax::init(int cur_in_size,
 
 void
 Softmax::forward(std::vector<Eigen::MatrixXd> input) {
-    //m_input.clear();
-    //m_output.clear();
-
     m_in_size = input.size();
     m_input = input;
     m_row = m_input[0].rows();

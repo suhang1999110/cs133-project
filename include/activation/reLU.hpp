@@ -23,9 +23,6 @@ ReLU::init( int cur_in_size,
 
 void
 ReLU::forward(std::vector<Eigen::MatrixXd> input) {
-    //m_input.clear();
-    //m_output.clear();
-
     m_in_size = input.size();
     m_input = input;
 
