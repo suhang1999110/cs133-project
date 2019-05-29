@@ -21,7 +21,7 @@ void
 Net::init(const std::string & model_path, const std::string & weights_path){
   load_model(model_path);
   load_weights(weights_path);
-  std::cout<<"\n\n\nhaha\n\n\n";
+  // std::cout<<"\n\n\nhaha\n\n\n";
 }
 
 Eigen::MatrixXd
@@ -63,12 +63,17 @@ Net::load_model(const std::string & path){
   int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
   int cur_input_num = 1;
 
+
   // parse each layer message in json
   for(int i = 0;i < jsonLayers.Size();++i){
     Layer * layer = nullptr;
+      // std::cout<<"\n\n";
+      // std::cout<<jsonLayers[i]["class_name"].GetString();
+      // std::cout<<"\n"<<i<<"\n";
     // determine layer type
-    if(jsonLayers[i]["class_name"].GetString() == "Conv2D"){
+    if(jsonLayers[i]["class_name"].GetString() == std::string("Conv2D")){
       layer = new Convolutional();
+      // std::cout<<"\n\nhehe\n\n";
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
@@ -84,22 +89,25 @@ Net::load_model(const std::string & path){
       cur_input_row = layer->output_row();
       cur_input_col = layer->output_col();
 
+      // std::cout<<((Convolutional*)layer)->kernel_row();
+      // std::cout<<"fgiouggfg\n";
+
       add_layer(layer);
 
       // create activation layer
       Layer * act;
-      if(jsonLayers[i]["config"]["activation"].GetString() == "relu"){
+      if(jsonLayers[i]["config"]["activation"].GetString() == std::string("relu")){
         act = new Relu();
-      } else if(jsonLayers[i]["config"]["activation"].GetString() == "softmax"){
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("softmax")){
         act = new Softmax();
-      } else if(jsonLayers[i]["config"]["activation"].GetString() == "sigmoid"){
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("sigmoid")){
         act = new Sigmoid();
       }
       // initialize activation layer and add it to the net
       act->init(0,0,0,0,0,0,0,0,"","");
       add_layer(act);
 
-    } else if(jsonLayers[i]["class_name"].GetString() == "MaxPooling2D"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
       layer = new MaxPooling();
       layer->init(cur_input_num,
                   cur_input_row,
@@ -117,7 +125,7 @@ Net::load_model(const std::string & path){
       cur_input_col = layer->output_col();
       
       add_layer(layer);
-    } else if(jsonLayers[i]["class_name"].GetString() == "Dense"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("Dense")){
       layer = new Dense();
       layer->init(cur_input_num,
                   cur_input_row,
@@ -138,18 +146,18 @@ Net::load_model(const std::string & path){
 
       // create activation layer
       Layer * act;
-      if(jsonLayers[i]["config"]["activation"].GetString() == "relu"){
+      if(jsonLayers[i]["config"]["activation"].GetString() == std::string("relu")){
         act = new Relu();
-      } else if(jsonLayers[i]["config"]["activation"].GetString() == "softmax"){
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("softmax")){
         act = new Softmax();
-      } else if(jsonLayers[i]["config"]["activation"].GetString() == "sigmoid"){
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("sigmoid")){
         act = new Sigmoid();
       }
       // initialize activation layer and add it to the net
       act->init(0,0,0,0,0,0,0,0,"","");
       add_layer(act);
 
-    } else if(jsonLayers[i]["class_name"].GetString() == "Flatten"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("Flatten")){
       layer = new Flatten();
       layer->init(cur_input_num,
                   cur_input_row,
@@ -179,12 +187,13 @@ Net::load_weights(const std::string & path){
   buffer << fin.rdbuf();
   std::string contents(buffer.str());
   doc.Parse<0>(contents.c_str());
+  
 
   for(auto it = m_layers.begin();it != m_layers.end();++it){
     // get weights and bias array in json
     
-    Value& layerWeights = doc["weights"];
-    Value& layerBias = doc["bias"];
+    Value& layerWeights = doc[(*it)->get_name().c_str()]["weights"];
+    Value& layerBias = doc[(*it)->get_name().c_str()]["bias"];
 
     // determine layer type
     switch((*it)->get_type()){
@@ -194,11 +203,20 @@ Net::load_weights(const std::string & path){
         std::vector<std::vector<Eigen::MatrixXd>> kernel((*it)->node_num(), std::vector<Eigen::MatrixXd>((*it)->in_size(), Eigen::MatrixXd(convLayer->kernel_row(), convLayer->kernel_row())));
         std::vector<double> bias((*it)->node_num());
         // construct kernel from json
+        
+        
+        std::cout<<"\n\nhehe\n\n";
+        std::cout<<(*it)->node_num()<<" ";
+        std::cout<<(*it)->in_size()<<" ";
+        std::cout<<convLayer->kernel_row()<<" ";
+        std::cout<<convLayer->kernel_col()<<" ";
+        
         for(int i = 0;i < (*it)->node_num();++i){
-          for(int j = 0;j < (*it)->node_num();++j){
+          for(int j = 0;j < (*it)->in_size();++j){
+            // std::cout<<"\nhjkjhjkj\n";
             for(int k = 0;k < convLayer->kernel_row();++k){
               for(int l = 0;l < convLayer->kernel_col();++l){
-                kernel[i][j](k,l) = layerWeights[i][j][k][l].GetInt();
+                kernel[i][j](k,l) = layerWeights[i][j][k][l].GetDouble();
               }
             }
           }
@@ -206,7 +224,7 @@ Net::load_weights(const std::string & path){
 
         // construct bias from json
         for(int i = 0;i < (*it)->node_num();++i){
-          bias[i] = layerBias[i].GetInt();
+          bias[i] = layerBias[i].GetDouble();
         }
 
         convLayer->init(kernel, bias);
