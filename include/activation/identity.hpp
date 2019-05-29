@@ -1,11 +1,13 @@
-// Implementation of the
-// Identity activation function
+///@file identity.hpp
+///@brief Implementation of the Identity activation function
 
-
+/// Constructor
 Identity::Identity() {}
 
+/// Destructor
 Identity::~Identity() {}
 
+/// Initialize the class
 void
 Identity::init( int cur_in_size,
                 int cur_input_row,
@@ -20,6 +22,7 @@ Identity::init( int cur_in_size,
     m_type = Layer::Identity;
 }
 
+/// Spread foward to generate the response
 void
 Identity::forward(std::vector<Eigen::MatrixXd> input) {
     m_in_size = m_input.size();
