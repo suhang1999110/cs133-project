@@ -12,7 +12,7 @@
 #include "activation/ReLU.hpp"
 #include "activation/Sigmoid.hpp"
 #include "activation/Softmax.hpp"
-#include "../third_party/toy_json/src/toy_json.cpp"
+#include "../third_party/CJsonObject/CJsonObject.hpp"
 #include <vector>
 #include <string>
 #include <Eigen/Core>

@@ -17,6 +17,7 @@ int main(){
   Net net;
   net.init(model_path, weights_path);
 
+
   // cv::Mat img = cv::imread(input_path);
   // Eigen::MatrixXd input(img.cols, img.rows);
 
