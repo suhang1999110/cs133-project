@@ -12,8 +12,11 @@ void
 MaxPooling::init(int cur_in_size,
                  int cur_input_row,
                  int cur_input_col,
+                 double node_num,
                  double pool_row,
                  double pool_col,
+                 double stride_row,
+                 double stride_col,
                  std::string padding,
                  std::string name) {
     m_pool_row = pool_row;

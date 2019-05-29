@@ -33,10 +33,19 @@ public:
     virtual ~Layer();
 
     /// initialize the parameters (including input size, output size, number of nodes etc.)
-    virtual void init() = 0;
+    virtual void init(int cur_in_size,
+                      int cur_input_row,
+                      int cur_input_col,
+                      double node_num,
+                      double kernel_row,
+                      double kernel_col,
+                      double stride_row,
+                      double stride_col,
+                      std::string padding,
+                      std::string name) = 0;
   
     /// compute the output of this layer
-    virtual void forward() = 0;
+    virtual void forward(std::vector<Eigen::MatrixXd> input) = 0;
   
     /// get number of neuron
     int node_num() const ;

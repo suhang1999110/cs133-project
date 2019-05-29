@@ -33,8 +33,9 @@ Net::init(const std::string & model_path, const std::string & weights_path){
 
 Eigen::MatrixXd
 Net::forward(const Eigen::MatrixXd & input){
+  std::vector<Eigen::MatrixXd> inputVec = {input};
   // pass input to the first layer
-  m_layers[0]->forward(input);
+  m_layers[0]->forward(inputVec);
 
   // use the previous layer's output as next layer's input
   for(int i = 1;i < num_layers();++i){
@@ -72,7 +73,7 @@ Net::load_model(const std::string & path){
 
     // determine layer type
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
-      case "Conv2D":
+      case "Conv2D":{
         layer = new Convolutional();
         layer->init(cur_input_num,
                     cur_input_row,
@@ -105,18 +106,21 @@ Net::load_model(const std::string & path){
             break;
         }
         // initialize activation layer and add it to the net
-        act->init();
+        act->init(0,0,0,0,0,0,0,0,"","");
         add_layer(act);
 
         break;
-
-      case "MaxPooling2D":
+      }
+      case "MaxPooling2D":{
         layer = new MaxPooling();
         layer->init(cur_input_num,
                     cur_input_row,
                     cur_input_col,
+                    0,
                     jsonLayers[i]["config"]["pool_size"][0].get_number(),
                     jsonLayers[i]["config"]["pool_size"][1].get_number(),
+                    0,
+                    0,
                     jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
         // update input size
@@ -126,13 +130,18 @@ Net::load_model(const std::string & path){
         
         add_layer(layer);
         break;
-
-      case "Dense":
+      }
+      case "Dense":{
         layer = new Dense();
         layer->init(cur_input_num,
                     cur_input_row,
                     cur_input_col,
-                    jsonLayers[i]["config"]["units"].get_number(), 
+                    jsonLayers[i]["config"]["units"].get_number(),
+                    0,
+                    0,
+                    0,
+                    0,
+                    "", 
                     jsonLayers[i]["config"]["name"].get_string());
         // update input size
         cur_input_num = layer->out_size();
@@ -155,16 +164,22 @@ Net::load_model(const std::string & path){
             break;
         }
         // initialize activation layer and add it to the net
-        act->init();
+        act->init(0,0,0,0,0,0,0,0,"","");
         add_layer(act);
 
         break;
-
-      case "Flatten":
+      }
+      case "Flatten":{
         layer = new Flatten();
         layer->init(cur_input_num,
                     cur_input_row,
                     cur_input_col,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    "",
                     jsonLayers[i]["config"]["name"].get_string());
         // update input size
         cur_input_num = layer->out_size();
@@ -173,6 +188,7 @@ Net::load_model(const std::string & path){
         
         add_layer(layer);
         break;
+      }
     }
   }
 }
