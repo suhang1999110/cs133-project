@@ -3,7 +3,7 @@
 #ifndef CS133_IDENTITY_HPP
 #define CS133_IDENTITY_HPP
 
-#include "Layer.hpp"
+#include "../Layer.hpp"
 
 /// @brief identity activation function
 ///

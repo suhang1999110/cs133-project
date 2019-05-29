@@ -216,12 +216,12 @@ Net::load_weights(const std::string & path){
       }
       case Layer::Dense:{
         // parameters to initialize
-        Eigen::MatrixXd weights((*it)->node_num(), (*it)->node_size());
+        Eigen::MatrixXd weights((*it)->node_num(), (*it)->input_row());
         Eigen::MatrixXd bias((*it)->node_num(), 1);
         
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
-          for(size_t j = 0;j < (*it)->node_size();++j){
+          for(size_t j = 0;j < (*it)->input_row();++j){
             weights(i,j) = layerWeights[i][j].get_number();
           }
           // set bias

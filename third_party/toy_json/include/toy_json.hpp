@@ -67,6 +67,16 @@ public:
     }
   }
 
+  int size() const {
+    if (type_ == JSON_ARRAY) {
+      return v_array_->size();
+    } else if (type_ == JSON_STRING) {
+      return v_string_->size();
+    } else {
+      throw std::runtime_error("wrong type on size");
+    }
+  }
+
   JsonNode &operator[](const size_t idx) const {
     if (type_ != JSON_ARRAY) {
       throw std::runtime_error("indexing on non-array node");

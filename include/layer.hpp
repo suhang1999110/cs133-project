@@ -13,25 +13,25 @@ Layer::node_num() const {
 
 // get the row number of the input matrix
 int
-input_row() const {
+Layer::input_row() const {
     return m_row;
 }
 
 // get the col number of the input matrix
 int
-input_col() const {
+Layer::input_col() const {
     return m_col;
 }
 
 // get the row number of the output matrix
 int
-output_row() const {
+Layer::output_row() const {
     return m_output_row;
 }
     
 // get the col number of the output matrix
 int
-output_col() const {
+Layer::output_col() const {
     return m_output_col;
 }
 
@@ -55,12 +55,12 @@ Layer::get_name() const {
     return m_name;
 }
 
-size_t
+int
 Layer::in_size() const {
     return m_in_size;
 }
 
-size_t
+int
 Layer::out_size() const {
     return m_out_size;
 }

@@ -44,7 +44,7 @@ Convolutional::init(int cur_in_size,
 }
 
 void
-Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel,
+Convolutional::init(std::vector<std::vector<Eigen::MatrixXd>> kernel,
                     std::vector<double> bias) {
     m_kernel = kernel;
     m_bias = bias;
@@ -53,14 +53,14 @@ Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel,
 void
 Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     // deal with the input (need padding or not)
-    if ( m_padding = "valid" ) {
+    if ( m_padding == "valid" ) {
         for (int i = 0; i < m_in_size; ++i) {
             Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row + 4, m_col + 4);
             image.block<m_row, m_col>(2, 2) += input[i];
             m_input.push_back(image);
         }
     }
-    else if ( m_padding = "same" ) {
+    else if ( m_padding == "same" ) {
         m_input = input;
     }
 
@@ -82,8 +82,8 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
             }
             node_output += cov_result;
         }
-        node_output.array() += bias[node];
-        m_output.push_back(cov_result);
+        node_output.array() += m_bias[node];
+        m_output.push_back(node_output);
     }
 }
 

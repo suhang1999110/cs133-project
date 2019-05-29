@@ -20,12 +20,12 @@ public:
               double stride_col,
               std::string padding,
               std::string name);
-    void init(std::vector<std::vector<Eigen::MartixXd>> kernel,
+    void init(std::vector<std::vector<Eigen::MatrixXd>> kernel,
               std::vector<double> bias);
     void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
-    std::vector<std::vector<Eigen::MartixXd>> m_kernel;
+    std::vector<std::vector<Eigen::MatrixXd>> m_kernel;
     int m_kernel_row;
     int m_kernel_col;
     int m_stride_row;

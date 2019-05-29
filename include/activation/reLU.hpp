@@ -12,7 +12,7 @@ Relu::init() {
 }
 
 void
-Eigen::forward(std::vector<Eigen::MatrixXd> input) {
+Relu::forward(std::vector<Eigen::MatrixXd> input) {
     m_in_size = m_input.size();
     m_input = input;
 

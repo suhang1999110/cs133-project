@@ -4,7 +4,7 @@
 #ifndef CS133_SOFTMAX_HPP
 #define CS133_SOFTMAX_HPP
 
-#include "Layer.hpp"
+#include "../Layer.hpp"
 
 class Softmax : public Layer {
 public:

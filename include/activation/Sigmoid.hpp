@@ -4,7 +4,7 @@
 #ifndef CS133_SIGMOID_HPP
 #define CS133_SIGMOID_HPP
 
-#include "Layer.hpp"
+#include "../Layer.hpp"
 
 class Sigmoid : public Layer {
 public:
@@ -12,7 +12,7 @@ public:
     ~Sigmoid();
     void init();
     void forward(std::vector<Eigen::MatrixXd> input);
-}
+};
 
 #include "sigmoid.hpp"
 

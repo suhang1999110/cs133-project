@@ -39,25 +39,25 @@ public:
     virtual void forward() = 0;
   
     /// get number of neuron
-    int node_num() const {};
+    int node_num() const ;
 
     // get the row number of the input matrix
-    int input_row() const {};
+    int input_row() const;
 
     // get the col number of the input matrix
-    int input_col() const {};
+    int input_col() const;
 
     // get the row number of the output matrix
-    int output_row() const {};
+    int output_row() const;
 
     // get the col number of the output matrix
-    int output_col() const {};
+    int output_col() const;
 
     /// get input
-    std::vector<Eigen::MatrixXd> input() const {};
+    std::vector<Eigen::MatrixXd> input() const;
 
     /// get output
-    std::vector<Eigen::MatrixXd> output() const {};
+    std::vector<Eigen::MatrixXd> output() const;
 
     /// return the layer type
     layerType get_type() const;
