@@ -46,8 +46,14 @@ public:
   
     /// compute the output of this layer
     virtual void forward(std::vector<Eigen::MatrixXd> input) = 0;
-  
-    /// get number of neuron
+
+    // get kernel row in Convolutional class
+    virtual int kernel_row() const;
+
+    // get kernel col in Convolutional class
+    virtual int kernel_col() const;
+    
+    // get number of neuron
     int node_num() const ;
 
     // get the row number of the input matrix

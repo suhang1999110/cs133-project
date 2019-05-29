@@ -23,6 +23,8 @@ public:
     void init(std::vector<std::vector<Eigen::MatrixXd>> kernel,
               std::vector<double> bias);
     void forward(std::vector<Eigen::MatrixXd> input);
+    int kernel_row() const;
+    int kernel_col() const;
 
 private:
     std::vector<std::vector<Eigen::MatrixXd>> m_kernel;

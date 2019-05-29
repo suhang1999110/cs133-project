@@ -56,7 +56,7 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     if ( m_padding == "valid" ) {
         for (int i = 0; i < m_in_size; ++i) {
             Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row + 4, m_col + 4);
-            image.block<m_row, m_col>(2, 2) += input[i];
+            image.block(2, 2, m_row, m_col) += input[i];
             m_input.push_back(image);
         }
     }
@@ -85,6 +85,16 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
         node_output.array() += m_bias[node];
         m_output.push_back(node_output);
     }
+}
+
+int
+Convolutional::kernel_row() const {
+    return m_kernel_row;
+}
+
+int
+Convolutional::kernel_col() const {
+    return m_kernel_col;
 }
 
 #endif // CS133_LAYER_CONVOLUTIONAL_IMPL_HPP
