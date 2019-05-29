@@ -1,18 +1,20 @@
+///@file Node.hpp
+///@brief Class of Node
 #ifndef CS133_NODE_HPP
 #define CS133_NODE_HPP
 
 #include <Eigen/Core>
 
-// Node is the basic computing unit
+///@brief Node is the basic computing unit
 class Node{
  public:
 
-  Node();
+  Node();   ///<donstructor
  
-  ~Node();
+  ~Node();  ///<destructor
   
  private:
-  Eigen::VectorXd node;
+  Eigen::VectorXd node;  /// A dynamic matrix to represent the node
 }
 
 #endif // CS133_NODE_HPP
