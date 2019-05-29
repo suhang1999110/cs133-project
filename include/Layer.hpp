@@ -1,5 +1,5 @@
-///@file Interface of the layer class
-
+///@file Layer.hpp
+///@brief Interface of layer class
 
 #ifndef CS133_LAYER_HPP
 #define CS133_LAYER_HPP
