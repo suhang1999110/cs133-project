@@ -4,7 +4,7 @@
 #ifndef CS133_LAYER_MAXPOOLING_HPP
 #define CS133_LAYER_MAXPOOLING_HPP
 
-#include "Layer.hpp"
+#include "../Layer.hpp"
 
 class MaxPooling : public Layer {
 public:

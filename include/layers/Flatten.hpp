@@ -1,6 +1,8 @@
 #ifndef CS133_LAYER_FLATTEN_HPP
 #define CS133_LAYER_FLATTEN_HPP
 
+#include "../Layer.hpp"
+
 class Flatten : public Layer {
 public:
     Flatten();

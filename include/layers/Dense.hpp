@@ -4,7 +4,7 @@
 #ifndef CS133_LAYER_DENSE_HPP
 #define CS133_LAYER_DENSE_HPP
 
-#include "Layer.hpp"
+#include "../Layer.hpp"
 
 class Dense : public Layer {
 public:
