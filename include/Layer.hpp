@@ -1,3 +1,6 @@
+///@file Interface of the layer class
+
+
 #ifndef CS133_LAYER_HPP
 #define CS133_LAYER_HPP
 
@@ -6,59 +9,75 @@
 #include <cstddef>
 #include <string>
 
-// layer base class
+/// @brief Layer base class
+///
+/// Will be inherited by many child class
 class Layer {
 public:
     enum layerType {
-      Conv, Pooling, Dense, Flatten, Identity, ReLU, Sigmoid, Softmax
+      Conv,      ///< Convolutional layer
+      Pooling,   ///< Pooling Layer
+      Dense,     ///< Dence Layer
+      Flatten,   ///< Flatten Layer
+      Identity,  ///< Layer of Identity activavtion function
+      ReLU,      ///< Layer of ReLU activavtion function
+      Sigmoid,   ///< Layer of Sigmoid activavtion function
+      Softmax    ///< Layer of Softmax activavtion function
     };
-    // default constructor
+
+    /// default constructor
     Layer();
 
-    // virtual deconstructor
+    /// virtual deconstructor
     virtual ~Layer();
 
-    // initialize the parameters (including input size, output size, number of nodes etc.)
+    /// initialize the parameters (including input size, output size, number of nodes etc.)
     virtual void init() = 0;
   
-    // compute the output of this layer
+    /// compute the output of this layer
     virtual void forward() = 0;
   
-    // get number of neuron
+    /// get number of neuron
     int node_num() const {};
 
-    // get input
+    /// get input
     std::vector<Eigen::MatrixXd> input() const {};
 
-    // get output
+    /// get output
     std::vector<Eigen::MatrixXd> output() const {};
 
-    // return the layer type
+    /// return the layer type
     layerType get_type() const;
 
-    // return the layer name
+    /// return the layer name
     std::string get_name() const;
 
-    // get the size of input
+    /// get the size of input
     int in_size() const;
   
-    // get the size of output
+    /// get the size of output
     int out_size() const;
 
 protected:
-    // number of neurons
+    /// number of neurons
     int m_node_num;
-    // input
+
+    /// input
     std::vector<Eigen::MatrixXd> m_input;
-    // output
+
+    /// output
     std::vector<Eigen::MatrixXd> m_output;
-    // layer name
+
+    /// layer name
     std::string m_name;
-    // layer type (e.g. conv, pooling, dense)
+
+    /// layer type (e.g. conv, pooling, dense)
     layerType m_type;
-    // number of input units of this hidden layers. Equal to the number of output units of the previous layer.
+
+    /// number of input units of this hidden layers. Equal to the number of output units of the previous layer.
     int m_in_size;
-    // number of output units of this hidden layers. Equal to the number of input units of the next layer.
+    
+    /// number of output units of this hidden layers. Equal to the number of input units of the next layer.
     int m_out_size;
 };
 
