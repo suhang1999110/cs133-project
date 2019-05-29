@@ -37,6 +37,9 @@ Dense::init(Eigen::MatrixXd weight, Eigen::MatrixXd bias) {
 
 void
 Dense::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+
     m_input = input;
 
     m_output.push_back(m_weight * m_input[0] + m_bias);

@@ -28,13 +28,16 @@ Flatten::init(int cur_in_size,
 
 void
 Flatten::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+
     m_input = input;
 
     Eigen::MatrixXd flatten_result((m_in_size * m_row * m_col) , 1);
     for (int image = 0; image < m_in_size; ++image) {
         for (int row = 0; row < m_row; ++row) {
             for (int col = 0; col < m_col; ++col) {
-                flatten_result((image * m_row * m_col + row * m_col + col), 1) = m_input[image](row, col);
+                flatten_result((image * m_row * m_col + row * m_col + col), 0) = m_input[image](row, col);
             }
         }
     }

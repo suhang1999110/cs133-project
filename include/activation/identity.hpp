@@ -25,6 +25,9 @@ Identity::init( int cur_in_size,
 /// Spread foward to generate the response
 void
 Identity::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+    
     m_in_size = m_input.size();
     m_input = input;
     m_out_size = m_in_size;

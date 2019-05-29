@@ -54,12 +54,16 @@ Convolutional::init(std::vector<std::vector<Eigen::MatrixXd>> kernel,
 void
 Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     // deal with the input (need padding or not)
+    //m_input.clear();
+    //m_output.clear();
+
     if ( m_padding == "valid" ) {
         for (int i = 0; i < m_in_size; ++i) {
-            Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row + 4, m_col + 4);
-            image.block(2, 2, m_row, m_col) += input[i];
+            Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row, m_col);
+            image.block(2, 2, m_col - 4, m_col - 4) += input[i];
             m_input.push_back(image);
         }
+        std::cout<< m_input[0] << std::endl;
     }
     else if ( m_padding == "same" ) {
         m_input = input;

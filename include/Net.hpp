@@ -12,7 +12,7 @@
 #include "activation/ReLU.hpp"
 #include "activation/Sigmoid.hpp"
 #include "activation/Softmax.hpp"
-#include "../third_party/CJsonObject/CJsonObject.hpp"
+#include "../third_party/rapidjson/document.h"
 #include <vector>
 #include <string>
 #include <Eigen/Core>

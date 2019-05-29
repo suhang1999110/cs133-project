@@ -35,6 +35,9 @@ MaxPooling::init(int cur_in_size,
 
 void
 MaxPooling::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+
     m_input = input;
 
     for (int image = 0; image < m_in_size; ++image) {

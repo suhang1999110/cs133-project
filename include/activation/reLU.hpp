@@ -2,12 +2,12 @@
 // ReLU activation function
 
 
-Relu::Relu() {}
+ReLU::ReLU() {}
 
-Relu::~Relu() {}
+ReLU::~ReLU() {}
 
 void
-Relu::init( int cur_in_size,
+ReLU::init( int cur_in_size,
             int cur_input_row,
             int cur_input_col,
             double node_num,
@@ -18,11 +18,15 @@ Relu::init( int cur_in_size,
             std::string padding,
             std::string name) {
     m_type = Layer::ReLU;
+    m_name = name;
 }
 
 void
-Relu::forward(std::vector<Eigen::MatrixXd> input) {
-    m_in_size = m_input.size();
+ReLU::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+
+    m_in_size = input.size();
     m_input = input;
 
     for(int i = 0; i < m_in_size; ++i) {

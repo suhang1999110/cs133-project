@@ -29,7 +29,7 @@
 
 :heavy_check_mark: Initialize the neural network with JSON file
 
-:heavy_minus_sign: Test the neural network with given images
+:heavy_check_mark: Test the neural network with given images
 
 ## reference:
 

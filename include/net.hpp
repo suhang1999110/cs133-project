@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace rapidjson;
+
 Net::Net(){}
 
 Net::~Net(){
@@ -24,18 +26,16 @@ Eigen::MatrixXd
 Net::forward(const Eigen::MatrixXd & input){
   std::vector<Eigen::MatrixXd> inputVec = {input};
   // pass input to the first layer
-
-  // std::cout<<"hehe\n";
-  // std::cout<<m_layers[0]->get_name()<<std::endl;
   m_layers[0]->forward(inputVec);
 
   // use the previous layer's output as next layer's input
   for(int i = 1;i < num_layers();++i){
-    m_layers[i]->forward(m_layers[i-1]->output());
+    m_layers[i]->forward(m_layers[i - 1]->output());
   }
   
   // store the output of the last layer
   m_output = m_layers[num_layers() - 1]->output()[0];
+  std::cout<<m_output<<std::endl;
   return m_output;
 }
 
@@ -46,53 +46,38 @@ Net::add_layer(Layer * layer){
 
 void
 Net::load_model(const std::string & path){
-  using neb::CJsonObject;
+  Document doc;
   std::ifstream fin(path);
-  std::string buffer;
-  fin>>buffer;
-  CJsonObject json(buffer);
-
+  std::string str( (std::istreambuf_iterator<char>(fin) ),
+                   (std::istreambuf_iterator<char>()    ) );
+  const char* json = str.data();
+  doc.Parse(json);
+  
   // layer message in json
-  auto jsonLayers = json["layers"];
+  Value& jsonLayers = doc["config"]["layers"];
 
   // set input size of the net
-  int cur_input_row;
-  int cur_input_col;
-  jsonLayers[0]["config"]["batch_input_shape"].Get(1, cur_input_row);
-  jsonLayers[0]["config"]["batch_input_shape"].Get(2, cur_input_col);
+  int cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].GetInt();
+  int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
   int cur_input_num = 1;
 
+
   // parse each layer message in json
-  for(int i = 0;i < jsonLayers.GetArraySize();++i){
+  for(int i = 0;i < jsonLayers.Size();++i){
     Layer * layer = nullptr;
-    std::string classname;
-    jsonLayers[i].Get("class_name", classname);
     // determine layer type
-    if(classname.c_str() == "Conv2D"){
+    if(jsonLayers[i]["class_name"].GetString() == std::string("Conv2D")){
       layer = new Convolutional();
-      int arg1,arg2,arg3,arg4,arg5;
-      std::string arg6, arg7;
-
-      jsonLayers[i]["config"].Get("filters", arg1);
-      jsonLayers[i]["config"]["kernel_size"].Get(0, arg2);
-      jsonLayers[i]["config"]["kernel_size"].Get(1, arg3);
-      jsonLayers[i]["config"]["strides"].Get(0, arg4);
-      jsonLayers[i]["config"]["strides"].Get(1, arg5);
-      jsonLayers[i]["config"].Get("padding", arg6);
-      jsonLayers[i]["config"].Get("name", arg7);
-
-      std::cout<<"filters: "<<arg1<<"\n";
-
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
-                  arg1,
-                  arg2,
-                  arg3,
-                  arg4,
-                  arg5,
-                  arg6,
-                  arg7);
+                  jsonLayers[i]["config"]["filters"].GetInt(),
+                  jsonLayers[i]["config"]["kernel_size"][0].GetInt(),
+                  jsonLayers[i]["config"]["kernel_size"][1].GetInt(),
+                  jsonLayers[i]["config"]["strides"][0].GetInt(),
+                  jsonLayers[i]["config"]["strides"][1].GetInt(),
+                  jsonLayers[i]["config"]["padding"].GetString(),
+                  jsonLayers[i]["config"]["name"].GetString());
       // update input size
       cur_input_num = layer->out_size();
       cur_input_row = layer->output_row();
@@ -102,60 +87,49 @@ Net::load_model(const std::string & path){
 
       // create activation layer
       Layer * act;
-      std::string actname;
-      jsonLayers[i]["config"].Get("activation", actname);
-      if(actname.c_str() == "relu"){
-        act = new Relu();
-      } else if(actname.c_str() == "softmax"){
+      if(jsonLayers[i]["config"]["activation"].GetString() == std::string("relu")){
+        act = new ReLU();
+        act->init(0,0,0,0,0,0,0,0,"","relu");
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("softmax")){
         act = new Softmax();
-      } else if(actname.c_str() == "sigmoid"){
+        act->init(0,0,0,0,0,0,0,0,"","softmax");
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("sigmoid")){
         act = new Sigmoid();
+        act->init(0,0,0,0,0,0,0,0,"","sigmoid");
       }
       // initialize activation layer and add it to the net
-      act->init(0,0,0,0,0,0,0,0,"","");
       add_layer(act);
 
-    } else if(classname.c_str() == "MaxPooling2D"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
       layer = new MaxPooling();
-      int arg1, arg2;
-      std::string arg3, arg4;
-      jsonLayers[i]["config"]["pool_size"].Get(0, arg1);
-      jsonLayers[i]["config"]["pool_size"].Get(1, arg2);
-      jsonLayers[i]["config"].Get("padding", arg3);
-      jsonLayers[i]["config"].Get("name", arg4);
-      
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
                   0,
-                  arg1,
-                  arg2,
+                  jsonLayers[i]["config"]["pool_size"][0].GetInt(),
+                  jsonLayers[i]["config"]["pool_size"][1].GetInt(),
                   0,
                   0,
-                  arg3,
-                  arg4);
+                  jsonLayers[i]["config"]["padding"].GetString(),
+                  jsonLayers[i]["config"]["name"].GetString());
       // update input size
       cur_input_num = layer->out_size();
       cur_input_row = layer->output_row();
       cur_input_col = layer->output_col();
       
       add_layer(layer);
-    } else if(classname.c_str() == "Dense"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("Dense")){
       layer = new Dense();
-      int arg1;
-      std::string arg2;
-      jsonLayers[i]["config"].Get("units", arg1);
-      jsonLayers[i]["config"].Get("name", arg2);
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
-                  arg1,
+                  jsonLayers[i]["config"]["units"].GetInt(),
                   0,
                   0,
                   0,
                   0,
                   "", 
-                  arg2);
+                  jsonLayers[i]["config"]["name"].GetString());
       // update input size
       cur_input_num = layer->out_size();
       cur_input_row = layer->output_row();
@@ -165,23 +139,21 @@ Net::load_model(const std::string & path){
 
       // create activation layer
       Layer * act;
-      std::string actname;
-      jsonLayers[i]["config"].Get("activation", actname);
-      if(actname.c_str() == "relu"){
-        act = new Relu();
-      } else if(actname.c_str() == "softmax"){
+      if(jsonLayers[i]["config"]["activation"].GetString() == std::string("relu")){
+        act = new ReLU();
+        act->init(0,0,0,0,0,0,0,0,"","relu");
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("softmax")){
         act = new Softmax();
-      } else if(actname.c_str() == "sigmoid"){
+        act->init(0,0,0,0,0,0,0,0,"","softmax");
+      } else if(jsonLayers[i]["config"]["activation"].GetString() == std::string("sigmoid")){
         act = new Sigmoid();
+        act->init(0,0,0,0,0,0,0,0,"","sigmoid");
       }
       // initialize activation layer and add it to the net
-      act->init(0,0,0,0,0,0,0,0,"","");
       add_layer(act);
 
-    } else if(classname.c_str() == "Flatten"){
+    } else if(jsonLayers[i]["class_name"].GetString() == std::string("Flatten")){
       layer = new Flatten();
-      std::string arg1;
-      jsonLayers[i]["config"].Get("name", arg1);
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
@@ -191,7 +163,7 @@ Net::load_model(const std::string & path){
                   0,
                   0,
                   "",
-                  arg1);
+                  jsonLayers[i]["config"]["name"].GetString());
       // update input size
       cur_input_num = layer->out_size();
       cur_input_row = layer->output_row();
@@ -204,17 +176,21 @@ Net::load_model(const std::string & path){
 
 void
 Net::load_weights(const std::string & path){
-  using neb::CJsonObject;
+  Document doc;
   std::ifstream fin(path);
-  std::string buffer;
-  fin>>buffer;
-  CJsonObject json(buffer);
-
+  std::string str( (std::istreambuf_iterator<char>(fin) ),
+                   (std::istreambuf_iterator<char>()    ) );
+  const char* json = str.data();
+  doc.Parse(json);
+  
 
   for(auto it = m_layers.begin();it != m_layers.end();++it){
     // get weights and bias array in json
-    auto layerWeights = json[(*it)->get_name()]["weights"];
-    auto layerBias = json[(*it)->get_name()]["bias"];
+    if((*it)->get_type() != Layer::Conv && (*it)->get_type() != Layer::Dense){
+      continue;
+    }
+    Value& layerWeights = doc[(*it)->get_name().c_str()]["weights"];
+    Value& layerBias = doc[(*it)->get_name().c_str()]["bias"];
 
     // determine layer type
     switch((*it)->get_type()){
@@ -224,18 +200,20 @@ Net::load_weights(const std::string & path){
         std::vector<std::vector<Eigen::MatrixXd>> kernel((*it)->node_num(), std::vector<Eigen::MatrixXd>((*it)->in_size(), Eigen::MatrixXd(convLayer->kernel_row(), convLayer->kernel_row())));
         std::vector<double> bias((*it)->node_num());
         // construct kernel from json
+        
         for(int i = 0;i < (*it)->node_num();++i){
-          for(int j = 0;j < (*it)->node_num();++j){
+          for(int j = 0;j < (*it)->in_size();++j){
             for(int k = 0;k < convLayer->kernel_row();++k){
               for(int l = 0;l < convLayer->kernel_col();++l){
-                layerWeights[i][j][k].Get(l, kernel[i][j](k,l));
+                kernel[i][j](k,l) = layerWeights[i][j][k][l].GetDouble();
               }
             }
           }
         }
+        
         // construct bias from json
         for(int i = 0;i < (*it)->node_num();++i){
-          layerBias.Get(i, bias[i]);
+          bias[i] = layerBias[i].GetDouble();
         }
 
         convLayer->init(kernel, bias);
@@ -251,10 +229,10 @@ Net::load_weights(const std::string & path){
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){
-            layerWeights[i].Get(j, weights(i,j));
+            weights(i,j) = layerWeights[i][j].GetDouble();
           }
           // set bias
-          layerBias.Get(i, bias(i));
+          bias(i) = layerBias[i].GetDouble();
         }
         denseLayer->init(weights, bias);
         break;

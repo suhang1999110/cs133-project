@@ -17,10 +17,14 @@ Softmax::init(int cur_in_size,
               std::string padding,
               std::string name) {
     m_type = Layer::Softmax;
+    m_name = name;
 }
 
 void
 Softmax::forward(std::vector<Eigen::MatrixXd> input) {
+    //m_input.clear();
+    //m_output.clear();
+
     m_in_size = input.size();
     m_input = input;
     m_row = m_input[0].rows();

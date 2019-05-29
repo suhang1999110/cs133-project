@@ -9,10 +9,10 @@
 ///@brief Activation function of ReLU
 ///
 /// ReLU function: f(x) = max(x,0)
-class Relu : public Layer {
+class ReLU : public Layer {
 public:
-    Relu();   ///<Constructor
-    ~Relu();  ///<Destructor
+    ReLU();   ///<Constructor
+    ~ReLU();  ///<Destructor
     void init(int cur_in_size,
               int cur_input_row,
               int cur_input_col,

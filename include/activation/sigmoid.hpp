@@ -20,10 +20,14 @@ Sigmoid::init(int cur_in_size,
               std::string padding,
               std::string name) {
     m_type = Layer::Sigmoid;
+    m_name = name;
 }
 
 void
 Sigmoid::forward(std::vector<Eigen::MatrixXd> input){
+    //m_input.clear();
+    //m_output.clear();
+
     m_in_size = input.size();
     m_input = input;
 
