@@ -105,7 +105,7 @@ Net::load_model(const std::string & path){
             break;
         }
         // initialize activation layer and add it to the net
-        act.init();
+        act->init();
         add_layer(act);
 
         break;
@@ -155,7 +155,7 @@ Net::load_model(const std::string & path){
             break;
         }
         // initialize activation layer and add it to the net
-        act.init();
+        act->init();
         add_layer(act);
 
         break;

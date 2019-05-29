@@ -14,4 +14,6 @@ public:
     void forward(std::vector<Eigen::MatrixXd> input);
 };
 
+#include "flatten.hpp"
+
 #endif
