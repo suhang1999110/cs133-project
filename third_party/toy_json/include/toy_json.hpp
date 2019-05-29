@@ -6,6 +6,7 @@
 #include <vector>
 #include <unordered_map>
 #include <stdexcept>
+#include <iostream>
 
 namespace toy_json {
 
@@ -89,6 +90,9 @@ public:
     if (type_ != JSON_OBJECT) {
       throw std::runtime_error("query on non-object node");
     } else {
+      // std::cout<<key<<" hi\n";
+      // std::cout<<(*v_object_).size();
+      // std::cout<<"\n";
       return (*v_object_)[key];
     }
   }

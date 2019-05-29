@@ -4,6 +4,8 @@
 #include <stack>
 #include <iomanip>
 #include <limits>
+#include <iostream>
+#include <utility>
 
 #include "../../include/utils/parsers.hpp"
 
@@ -215,6 +217,12 @@ JsonNode::array parse_array(std::string::const_iterator &str_it) {
   str_it++;
   // parse the array
   while(*str_it){
+    auto temp = str_it;
+    std::cout<<"\n!!!!!!!!!!!!!!!!!!!!!\n";
+    for(int i = 0; i < 40;++i){
+      std::cout<<*temp++;
+    }
+    std::cout<<"\n*********************\n";
     switch(*str_it){
       case ' ':
         // skip whitespace
@@ -302,9 +310,12 @@ JsonNode::array parse_array(std::string::const_iterator &str_it) {
         // expect an array
         try{
           if(!expectComma){
+            std::cout<<"\nhaha4\n";
             std::unique_ptr<JsonNode::array> a(new JsonNode::array(parse_array(str_it)));
-            JsonNode newNode(std::move(a));
-            result.push_back(newNode);
+            // JsonNode newNode(std::move(a));
+            // result.push_back(newNode);
+            std::cout<<"\nhaha5\n";
+            result.push_back(JsonNode(std::move(a)));
             expectComma = true;
           }
           else{
@@ -320,9 +331,11 @@ JsonNode::array parse_array(std::string::const_iterator &str_it) {
         try{
           if(!expectComma){
             std::unique_ptr<JsonNode::object> o(new JsonNode::object(parse_object(str_it)));
-            JsonNode newNode(std::move(o));
-            result.push_back(newNode);
+            // JsonNode newNode(std::move(o));
+            // result.push_back(newNode);
+            result.push_back(JsonNode(std::move(o)));
             expectComma = true;
+            // std::cout<<"\nhaha\n";
           }
           else{
             throw std::runtime_error("parsing array type failed");
@@ -336,6 +349,7 @@ JsonNode::array parse_array(std::string::const_iterator &str_it) {
         // end of an array
         if(expectComma){
           // should expect , or ] after an element
+          std::cout<<"\nhaha2\n";
           str_it++;
           return result;
         }
@@ -381,7 +395,14 @@ JsonNode::object parse_object(std::string::const_iterator &str_it) {
   str_it++;
   // parse the object
   // { "Key1" : Value1 , "Key2" : Value2 }
+    // std::cout<<"\nhehe\n";
   while(*str_it){
+    auto temp = str_it;
+    std::cout<<"\n#######################\n";
+    for(int i = 0; i < 40;++i){
+      std::cout<<*temp++;
+    }
+    std::cout<<"\n@@@@@@@@@@@@@@@@@@@@@@\n";
     switch(*str_it){
       case ' ':
       // skip whitespace
@@ -472,9 +493,12 @@ JsonNode::object parse_object(std::string::const_iterator &str_it) {
         // expect an array
         try{
           if(expectToken == Value){
+            std::cout<<"\nhaha3\n";
             std::unique_ptr<JsonNode::array> a(new JsonNode::array(parse_array(str_it)));
-            JsonNode newNode(std::move(a));
-            result.insert(std::make_pair(key, newNode));
+            // JsonNode newNode(std::move(a));
+            // std::pair<std::string, JsonNode> temp = std::make_pair(key, JsonNode(std::move(a)));
+            // result.insert(std::make_pair(key, newNode));
+            result.insert(std::make_pair(key, JsonNode(std::move(a))));
             expectToken = Comma;
           }
           else{
@@ -490,8 +514,9 @@ JsonNode::object parse_object(std::string::const_iterator &str_it) {
         try{
           if(expectToken == Value){
             std::unique_ptr<JsonNode::object> o(new JsonNode::object(parse_object(str_it)));
-            JsonNode newNode(std::move(o));
-            result.insert(std::make_pair(key, newNode));
+            // JsonNode newNode(std::move(o));
+            // result.insert(std::make_pair(key, newNode));
+            result.insert(std::make_pair(key, JsonNode(std::move(o))));
             expectToken = Comma;
           }
           else{
