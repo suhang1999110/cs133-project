@@ -29,7 +29,8 @@ Softmax::forward(std::vector<Eigen::MatrixXd> input) {
     for (int i = 0; i < m_in_size; ++i) {
         Eigen::MatrixXd result(m_row, m_col);
         result.array() = (m_input[i].rowwise() - m_input[i].colwise().maxCoeff()).array().exp();
-        result.array().rowwise() /= result.colwise().sum();
+        Eigen::Array<double, 1, Eigen::Dynamic> colsums = result.colwise().sum();
+        result.array().rowwise() /= colsums;
         m_output.push_back(result);
     }
     m_out_size = m_output.size();
