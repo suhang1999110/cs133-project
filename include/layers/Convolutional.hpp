@@ -36,7 +36,7 @@ private:
     int m_stride_row;   ///< Number of rows in stride
     int m_stride_col;   ///< Number of columns in stride
     std::vector<double> m_bias;   ///< Vector of number to represent the bias
-    std::string m_padding;   ///< The padding, represented by string
+    std::string m_padding;   ///< Indicate whether it is needed to fill the data to certain size
 };
 
 #include "convolutional.hpp"
