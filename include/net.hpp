@@ -41,8 +41,9 @@ Net::forward(const Eigen::MatrixXd & input){
     m_layers[i]->forward(m_layers[i-1]->output());
   }
   
-  // return the output of the last layer
-  return m_layers[num_layers() - 1]->output();
+  // store the output of the last layer
+  m_output = m_layers[num_layers() - 1]->output()[0];
+  return m_output;
 }
 
 void
@@ -60,6 +61,10 @@ Net::load_model(const std::string & path){
   // layer message in json
   auto jsonLayers = (*jsonPtr)["config"]["layers"];
 
+  // set input size of the net
+  int cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].get_number();
+  int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].get_number();
+
   // parse each layer message in json
   for(auto i = 0;i < jsonLayers.size();++i){
     Layer * layer = nullptr;
@@ -68,63 +73,95 @@ Net::load_model(const std::string & path){
     switch(jsonLayers[i]["class_name"].get_string().c_str()){
       case "Conv2D":
         layer = new Convolutional();
-        layer->init(jsonLayers[i]["config"]["filters"].get_number(),
+        layer->init(cur_input_row,
+                    cur_input_col,
+                    jsonLayers[i]["config"]["filters"].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][0].get_number(),
                     jsonLayers[i]["config"]["kernel_size"][1].get_number(),
                     jsonLayers[i]["config"]["strides"][0].get_number(),
                     jsonLayers[i]["config"]["strides"][1].get_number(),
                     jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
+        // update input size
+        cur_input_row = layer->output_row();
+        cur_input_col = layer->output_col();
+        
         add_layer(layer);
 
-        // add activation layer
+        // create activation layer
+        Layer * act;
         switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
           case "relu":
-            add_layer(new Relu());
+            act = new Relu();
             break;
           case "softmax":
-            add_layer(new Softmax());
+            act = new Softmax();
             break;
           case "sigmoid":
-            add_layer(new Sigmoid());
+            act = new Sigmoid();
             break;
         }
+        // initialize activation layer and add it to the net
+        act.init();
+        add_layer(act);
 
         break;
 
       case "MaxPooling2D":
         layer = new MaxPooling();
-        layer->init(jsonLayers[i]["config"]["pool_size"][0].get_number(),
+        layer->init(cur_input_row,
+                    cur_input_col,
+                    jsonLayers[i]["config"]["pool_size"][0].get_number(),
                     jsonLayers[i]["config"]["pool_size"][1].get_number(),
                     jsonLayers[i]["config"]["padding"].get_string(),
                     jsonLayers[i]["config"]["name"].get_string());
+        // update input size
+        cur_input_row = layer->output_row();
+        cur_input_col = layer->output_col();
+        
         add_layer(layer);
         break;
 
       case "Dense":
         layer = new Dense();
-        layer->init(jsonLayers[i]["config"]["units"].get_number(), 
+        layer->init(cur_input_row,
+                    cur_input_col,
+                    jsonLayers[i]["config"]["units"].get_number(), 
                     jsonLayers[i]["config"]["name"].get_string());
+        // update input size
+        cur_input_row = layer->output_row();
+        cur_input_col = layer->output_col();
+
         add_layer(layer);
 
-        // add activation layer
+        // create activation layer
+        Layer * act;
         switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
           case "relu":
-            add_layer(new Relu());
+            act = new Relu();
             break;
           case "softmax":
-            add_layer(new Softmax());
+            act = new Softmax();
             break;
           case "sigmoid":
-            add_layer(new Sigmoid());
+            act = new Sigmoid();
             break;
         }
+        // initialize activation layer and add it to the net
+        act.init();
+        add_layer(act);
 
         break;
 
       case "Flatten":
         layer = new Flatten();
-        layer->init(jsonLayers[i]["config"]["name"].get_string());
+        layer->init(cur_input_row,
+                    cur_input_col,
+                    jsonLayers[i]["config"]["name"].get_string());
+        // update input size
+        cur_input_row = layer->output_row();
+        cur_input_col = layer->output_col();
+        
         add_layer(layer);
         break;
     }
@@ -190,7 +227,7 @@ Net::load_weights(const std::string & path){
 
 Eigen::MatrixXd
 Net::output() const{
-  return m_outputLayer.output();
+  return m_output;
 }
 
 size_t

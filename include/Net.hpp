@@ -46,8 +46,8 @@ class Net{
  private:
   /// all hidden layers
   std::vector<Layer*> m_layers;
-  /// output layer
-  Layer m_outputLayer;
+  /// output
+  Eigen::MatrixXd m_output;
 };
 
 #include "net.hpp"
