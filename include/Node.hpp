@@ -5,7 +5,9 @@
 
 #include <Eigen/Core>
 
-///@brief Node is the basic computing unit
+///@brief Node Class
+///
+/// The basic computing unit
 class Node{
  public:
 
@@ -14,7 +16,7 @@ class Node{
   ~Node();  ///<destructor
   
  private:
-  Eigen::VectorXd node;  /// A dynamic matrix to represent the node
+  Eigen::VectorXd node;  ///< A dynamic matrix to represent the node
 }
 
 #endif // CS133_NODE_HPP
