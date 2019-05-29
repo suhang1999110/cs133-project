@@ -14,6 +14,7 @@
 /// Will be inherited by many child class
 class Layer {
 public:
+    ///@enum  The type of layers
     enum layerType {
       Conv,      ///< Convolutional layer
       Pooling,   ///< Pooling Layer
