@@ -68,127 +68,110 @@ Net::load_model(const std::string & path){
   int cur_input_num = 1;
 
   // parse each layer message in json
-  for(auto i = 0;i < jsonLayers.size();++i){
+  for(int i = 0;i < jsonLayers.size();++i){
     Layer * layer = nullptr;
 
     // determine layer type
-    switch(jsonLayers[i]["class_name"].get_string().c_str()){
-      case "Conv2D":{
-        layer = new Convolutional();
-        layer->init(cur_input_num,
-                    cur_input_row,
-                    cur_input_col,
-                    jsonLayers[i]["config"]["filters"].get_number(),
-                    jsonLayers[i]["config"]["kernel_size"][0].get_number(),
-                    jsonLayers[i]["config"]["kernel_size"][1].get_number(),
-                    jsonLayers[i]["config"]["strides"][0].get_number(),
-                    jsonLayers[i]["config"]["strides"][1].get_number(),
-                    jsonLayers[i]["config"]["padding"].get_string(),
-                    jsonLayers[i]["config"]["name"].get_string());
-        // update input size
-        cur_input_num = layer->out_size();
-        cur_input_row = layer->output_row();
-        cur_input_col = layer->output_col();
+    if(jsonLayers[i]["class_name"].get_string().c_str() == "Conv2D"){
+      layer = new Convolutional();
+      layer->init(cur_input_num,
+                  cur_input_row,
+                  cur_input_col,
+                  jsonLayers[i]["config"]["filters"].get_number(),
+                  jsonLayers[i]["config"]["kernel_size"][0].get_number(),
+                  jsonLayers[i]["config"]["kernel_size"][1].get_number(),
+                  jsonLayers[i]["config"]["strides"][0].get_number(),
+                  jsonLayers[i]["config"]["strides"][1].get_number(),
+                  jsonLayers[i]["config"]["padding"].get_string(),
+                  jsonLayers[i]["config"]["name"].get_string());
+      // update input size
+      cur_input_num = layer->out_size();
+      cur_input_row = layer->output_row();
+      cur_input_col = layer->output_col();
 
-        add_layer(layer);
+      add_layer(layer);
 
-        // create activation layer
-        Layer * act;
-        switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
-          case "relu":
-            act = new Relu();
-            break;
-          case "softmax":
-            act = new Softmax();
-            break;
-          case "sigmoid":
-            act = new Sigmoid();
-            break;
-        }
-        // initialize activation layer and add it to the net
-        act->init(0,0,0,0,0,0,0,0,"","");
-        add_layer(act);
-
-        break;
+      // create activation layer
+      Layer * act;
+      if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "relu"){
+        act = new Relu();
+      } else if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "softmax"){
+        act = new Softmax();
+      } else if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "sigmoid"){
+        act = new Sigmoid();
       }
-      case "MaxPooling2D":{
-        layer = new MaxPooling();
-        layer->init(cur_input_num,
-                    cur_input_row,
-                    cur_input_col,
-                    0,
-                    jsonLayers[i]["config"]["pool_size"][0].get_number(),
-                    jsonLayers[i]["config"]["pool_size"][1].get_number(),
-                    0,
-                    0,
-                    jsonLayers[i]["config"]["padding"].get_string(),
-                    jsonLayers[i]["config"]["name"].get_string());
-        // update input size
-        cur_input_num = layer->out_size();
-        cur_input_row = layer->output_row();
-        cur_input_col = layer->output_col();
-        
-        add_layer(layer);
-        break;
-      }
-      case "Dense":{
-        layer = new Dense();
-        layer->init(cur_input_num,
-                    cur_input_row,
-                    cur_input_col,
-                    jsonLayers[i]["config"]["units"].get_number(),
-                    0,
-                    0,
-                    0,
-                    0,
-                    "", 
-                    jsonLayers[i]["config"]["name"].get_string());
-        // update input size
-        cur_input_num = layer->out_size();
-        cur_input_row = layer->output_row();
-        cur_input_col = layer->output_col();
+      // initialize activation layer and add it to the net
+      act->init(0,0,0,0,0,0,0,0,"","");
+      add_layer(act);
 
-        add_layer(layer);
+    } else if(jsonLayers[i]["class_name"].get_string().c_str() == "MaxPooling2D"){
+      layer = new MaxPooling();
+      layer->init(cur_input_num,
+                  cur_input_row,
+                  cur_input_col,
+                  0,
+                  jsonLayers[i]["config"]["pool_size"][0].get_number(),
+                  jsonLayers[i]["config"]["pool_size"][1].get_number(),
+                  0,
+                  0,
+                  jsonLayers[i]["config"]["padding"].get_string(),
+                  jsonLayers[i]["config"]["name"].get_string());
+      // update input size
+      cur_input_num = layer->out_size();
+      cur_input_row = layer->output_row();
+      cur_input_col = layer->output_col();
+      
+      add_layer(layer);
+    } else if(jsonLayers[i]["class_name"].get_string().c_str() == "Dense"){
+      layer = new Dense();
+      layer->init(cur_input_num,
+                  cur_input_row,
+                  cur_input_col,
+                  jsonLayers[i]["config"]["units"].get_number(),
+                  0,
+                  0,
+                  0,
+                  0,
+                  "", 
+                  jsonLayers[i]["config"]["name"].get_string());
+      // update input size
+      cur_input_num = layer->out_size();
+      cur_input_row = layer->output_row();
+      cur_input_col = layer->output_col();
 
-        // create activation layer
-        Layer * act;
-        switch(jsonLayers[i]["config"]["activation"].get_string().c_str()){
-          case "relu":
-            act = new Relu();
-            break;
-          case "softmax":
-            act = new Softmax();
-            break;
-          case "sigmoid":
-            act = new Sigmoid();
-            break;
-        }
-        // initialize activation layer and add it to the net
-        act->init(0,0,0,0,0,0,0,0,"","");
-        add_layer(act);
+      add_layer(layer);
 
-        break;
+      // create activation layer
+      Layer * act;
+      if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "relu"){
+        act = new Relu();
+      } else if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "softmax"){
+        act = new Softmax();
+      } else if(jsonLayers[i]["config"]["activation"].get_string().c_str() == "sigmoid"){
+        act = new Sigmoid();
       }
-      case "Flatten":{
-        layer = new Flatten();
-        layer->init(cur_input_num,
-                    cur_input_row,
-                    cur_input_col,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    "",
-                    jsonLayers[i]["config"]["name"].get_string());
-        // update input size
-        cur_input_num = layer->out_size();
-        cur_input_row = layer->output_row();
-        cur_input_col = layer->output_col();
-        
-        add_layer(layer);
-        break;
-      }
+      // initialize activation layer and add it to the net
+      act->init(0,0,0,0,0,0,0,0,"","");
+      add_layer(act);
+
+    } else if(jsonLayers[i]["class_name"].get_string().c_str() == "Flatten"){
+      layer = new Flatten();
+      layer->init(cur_input_num,
+                  cur_input_row,
+                  cur_input_col,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  "",
+                  jsonLayers[i]["config"]["name"].get_string());
+      // update input size
+      cur_input_num = layer->out_size();
+      cur_input_row = layer->output_row();
+      cur_input_col = layer->output_col();
+      
+      add_layer(layer);
     }
   }
 }
@@ -208,15 +191,15 @@ Net::load_weights(const std::string & path){
     // determine layer type
     switch((*it)->get_type()){
       case Layer::Conv:{
+        Convolutional* convLayer = (Convolutional*)(*it);
         // parameters to initialize
-        std::vector<std::vector<Eigen::MatrixXd>> kernel((*it)->node_num(), std::vector<Eigen::MatrixXd>((*it)->in_size(), Eigen::MatrixXd((*it)->kernel_row(), (*it)->kernel_row())));
+        std::vector<std::vector<Eigen::MatrixXd>> kernel((*it)->node_num(), std::vector<Eigen::MatrixXd>((*it)->in_size(), Eigen::MatrixXd(convLayer->kernel_row(), convLayer->kernel_row())));
         std::vector<double> bias((*it)->node_num());
-
         // construct kernel from json
         for(int i = 0;i < (*it)->node_num();++i){
           for(int j = 0;j < (*it)->node_num();++j){
-            for(int k = 0;k < (*it)->kernel_row();++k){
-              for(int l = 0;l < (*it)->kernel_col();++l){
+            for(int k = 0;k < convLayer->kernel_row();++k){
+              for(int l = 0;l < convLayer->kernel_col();++l){
                 kernel[i][j](k,l) = layerWeights[i][j][k][l].get_number();
               }
             }
@@ -228,13 +211,16 @@ Net::load_weights(const std::string & path){
           bias[i] = layerBias[i].get_number();
         }
 
+        convLayer->init(kernel, bias);
+
         break;
       }
       case Layer::Dense:{
         // parameters to initialize
         Eigen::MatrixXd weights((*it)->node_num(), (*it)->input_row());
         Eigen::MatrixXd bias((*it)->node_num(), 1);
-        
+        Dense* denseLayer = (Dense*)(*it);
+
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){
@@ -243,7 +229,7 @@ Net::load_weights(const std::string & path){
           // set bias
           bias(i) = layerBias[i].get_number();
         }
-        (*it)->init(weights, bias);
+        denseLayer->init(weights, bias);
         break;
       }
     }
