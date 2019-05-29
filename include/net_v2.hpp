@@ -21,7 +21,6 @@ void
 Net::init(const std::string & model_path, const std::string & weights_path){
   load_model(model_path);
   load_weights(weights_path);
-  // std::cout<<"\n\n\nhaha\n\n\n";
 }
 
 Eigen::MatrixXd
@@ -67,13 +66,9 @@ Net::load_model(const std::string & path){
   // parse each layer message in json
   for(int i = 0;i < jsonLayers.Size();++i){
     Layer * layer = nullptr;
-      // std::cout<<"\n\n";
-      // std::cout<<jsonLayers[i]["class_name"].GetString();
-      // std::cout<<"\n"<<i<<"\n";
     // determine layer type
     if(jsonLayers[i]["class_name"].GetString() == std::string("Conv2D")){
       layer = new Convolutional();
-      // std::cout<<"\n\nhehe\n\n";
       layer->init(cur_input_num,
                   cur_input_row,
                   cur_input_col,
@@ -88,9 +83,6 @@ Net::load_model(const std::string & path){
       cur_input_num = layer->out_size();
       cur_input_row = layer->output_row();
       cur_input_col = layer->output_col();
-
-      // std::cout<<((Convolutional*)layer)->kernel_row();
-      // std::cout<<"fgiouggfg\n";
 
       add_layer(layer);
 
@@ -191,7 +183,9 @@ Net::load_weights(const std::string & path){
 
   for(auto it = m_layers.begin();it != m_layers.end();++it){
     // get weights and bias array in json
-    
+    if((*it)->get_type() != Layer::Conv && (*it)->get_type() != Layer::Dense){
+      continue;
+    }
     Value& layerWeights = doc[(*it)->get_name().c_str()]["weights"];
     Value& layerBias = doc[(*it)->get_name().c_str()]["bias"];
 
@@ -204,16 +198,8 @@ Net::load_weights(const std::string & path){
         std::vector<double> bias((*it)->node_num());
         // construct kernel from json
         
-        
-        std::cout<<"\n\nhehe\n\n";
-        std::cout<<(*it)->node_num()<<" ";
-        std::cout<<(*it)->in_size()<<" ";
-        std::cout<<convLayer->kernel_row()<<" ";
-        std::cout<<convLayer->kernel_col()<<" ";
-        
         for(int i = 0;i < (*it)->node_num();++i){
           for(int j = 0;j < (*it)->in_size();++j){
-            // std::cout<<"\nhjkjhjkj\n";
             for(int k = 0;k < convLayer->kernel_row();++k){
               for(int l = 0;l < convLayer->kernel_col();++l){
                 kernel[i][j](k,l) = layerWeights[i][j][k][l].GetDouble();
@@ -221,7 +207,7 @@ Net::load_weights(const std::string & path){
             }
           }
         }
-
+        
         // construct bias from json
         for(int i = 0;i < (*it)->node_num();++i){
           bias[i] = layerBias[i].GetDouble();
@@ -240,10 +226,10 @@ Net::load_weights(const std::string & path){
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){
-            weights(i,j) = layerWeights[i][j].GetInt();
+            weights(i,j) = layerWeights[i][j].GetDouble();
           }
           // set bias
-          bias(i) = layerBias[i].GetInt();
+          bias(i) = layerBias[i].GetDouble();
         }
         denseLayer->init(weights, bias);
         break;

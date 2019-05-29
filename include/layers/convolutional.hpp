@@ -1,6 +1,7 @@
 #ifndef CS133_LAYER_CONVOLUTIONAL_IMPL_HPP
 #define CS133_LAYER_CONVOLUTIONAL_IMPL_HPP
 
+#include <iostream>
 // default constructor
 Convolutional::Convolutional() {}
 

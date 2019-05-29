@@ -24,6 +24,9 @@ Eigen::MatrixXd
 Net::forward(const Eigen::MatrixXd & input){
   std::vector<Eigen::MatrixXd> inputVec = {input};
   // pass input to the first layer
+
+  // std::cout<<"hehe\n";
+  // std::cout<<m_layers[0]->get_name()<<std::endl;
   m_layers[0]->forward(inputVec);
 
   // use the previous layer's output as next layer's input
@@ -77,6 +80,8 @@ Net::load_model(const std::string & path){
       jsonLayers[i]["config"]["strides"].Get(1, arg5);
       jsonLayers[i]["config"].Get("padding", arg6);
       jsonLayers[i]["config"].Get("name", arg7);
+
+      std::cout<<"filters: "<<arg1<<"\n";
 
       layer->init(cur_input_num,
                   cur_input_row,
