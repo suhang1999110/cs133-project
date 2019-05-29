@@ -37,7 +37,15 @@ int main(){
 
   Eigen::MatrixXd output = net.forward(input);
 
-  std::cout<<"Output:\n"<<output;
+  int result = 10;
+  for(int i = 0;i < 10;++i){
+    if(output(i)){
+      result = i;
+      break;
+    }
+  }
+
+  std::cout<<"Output: "<<result<<"\n"<<output;
 
   return 0;
 }
