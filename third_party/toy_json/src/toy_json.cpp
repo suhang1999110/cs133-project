@@ -2,8 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "toy_json.hpp"
-#include "utils/parsers.hpp"
+#include "utils/parsers.cpp"
 
 namespace toy_json {
 
