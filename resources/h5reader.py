@@ -1,6 +1,7 @@
 import h5py
 import json
 import numpy as np
+import sys
 # import pysnooper
 
 class NpEncoder(json.JSONEncoder):
@@ -28,10 +29,10 @@ def read(fileName):
             dic[key]["bias"] = list(f[key][key]["bias:0"])
             dic[key]["weights"] = np.array(list(f[key][key]["kernel:0"])).T
     js = json.dumps(dic, cls=NpEncoder)
-    with open("weights.json", 'w') as w:
+    with open(fileName.split('.')[0] + '.json', 'w') as w:
         w.write(js)
     f.close()
 
 if __name__ == "__main__":
-    name = "weights.h5"
+    name = sys.argv[1]
     read(name)
