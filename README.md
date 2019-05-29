@@ -23,11 +23,11 @@
 
 :heavy_check_mark: Build and train model in Python
 
-:heavy_minus_sign: Convert model into JSON file
+:heavy_check_mark: Convert model into JSON file
 
 :heavy_check_mark: Build model framework in C++
 
-:heavy_minus_sign: Initialize the neural network with JSON file
+:heavy_check_mark: Initialize the neural network with JSON file
 
 :heavy_minus_sign: Test the neural network with given images
 
