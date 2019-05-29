@@ -5,9 +5,19 @@
 #define CS133_NET_HPP
 
 #include "Layer.hpp"
+#include "layers/Convolutional.hpp"
+#include "layers/Dense.hpp"
+#include "layers/MaxPooling.hpp"
+#include "layers/Flatten.hpp"
+#include "activation/ReLU.hpp"
+#include "activation/Sigmoid.hpp"
+#include "activation/Softmax.hpp"
+#include "../third_party/toy_json/src/toy_json.cpp"
 #include <vector>
 #include <string>
 #include <Eigen/Core>
+#include <fstream>
+#include <cassert>
 
 ///@brief Class of network, consists of several layers
 class Net{

@@ -2,20 +2,6 @@
 #ifndef CS133_NET_IMPL_HPP
 #define CS133_NET_IMPL_HPP
 
-#include "Layer.hpp"
-#include "layers/Convolutional.hpp"
-#include "layers/Dense.hpp"
-#include "layers/MaxPooling.hpp"
-#include "layers/Flatten.hpp"
-#include "activation/ReLU.hpp"
-#include "activation/Sigmoid.hpp"
-#include "activation/Softmax.hpp"
-#include "../third_party/toy_json/include/toy_json.hpp" // json parser
-#include <Eigen/Core>
-#include <fstream>
-#include <string>
-#include <cassert>      // assert()
-
 Net::Net(){}
 
 Net::~Net(){
