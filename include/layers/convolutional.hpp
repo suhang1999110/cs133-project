@@ -8,7 +8,10 @@ Convolutional::Convolutional() {}
 Convolutional::~Convolutional() {}
 
 void
-Convolutional::init(double node_num,
+Convolutional::init(int cur_in_size,
+                    int cur_input_row,
+                    int cur_input_col,
+                    double node_num,
                     double kernel_row,
                     double kernel_col,
                     double stride_row,
@@ -23,6 +26,21 @@ Convolutional::init(double node_num,
     m_padding = padding;
     m_name = name;
     m_type = Layer::Conv;
+
+    m_in_size = cur_in_size;
+    m_out_size = m_node_num;
+    if ( m_padding == "valid" ) {
+        m_row = cur_input_row + 4;
+        m_col = cur_input_col + 4;
+        m_output_row = m_row - m_kernel_row + m_stride_row;
+        m_output_col = m_col - m_kernel_col + m_stride_col;
+    }
+    else if ( m_padding == "same" ) {
+        m_row = cur_input_row;
+        m_col = cur_input_col;
+        m_output_row = m_row - m_kernel_row + m_stride_row;
+        m_output_col = m_col - m_kernel_col + m_stride_col;
+    }
 }
 
 void
@@ -34,8 +52,6 @@ Convolutional::init(std::vector<std::vector<Eigen::MartixXd>> kernel,
 
 void
 Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
-    // how many pictures being input
-    m_in_size = input.size();
     // deal with the input (need padding or not)
     if ( m_padding = "valid" ) {
         for (int i = 0; i < m_in_size; ++i) {
@@ -47,8 +63,6 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     else if ( m_padding = "same" ) {
         m_input = input;
     }
-    m_row = m_input[0].rows();
-    m_col = m_input[0].cols();
 
     // compute the convolution
     for (int node = 0; node < m_node_num; ++node) {
@@ -63,15 +77,14 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
                             accumulation += m_kernel[node][image](i, j) * m_input[image](row + i, col + j);
                         }
                     }
-                    cov_result(row, col) = accumulation + m_bias[node];
+                    cov_result(row, col) = accumulation;
                 }
             }
             node_output += cov_result;
         }
-        m_output.push_back(node_output);
+        node_output.array() += bias[node];
+        m_output.push_back(cov_result);
     }
-
-    m_out_size = m_output.size();
 }
 
 #endif // CS133_LAYER_CONVOLUTIONAL_IMPL_HPP

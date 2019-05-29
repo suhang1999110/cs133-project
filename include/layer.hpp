@@ -11,6 +11,30 @@ Layer::node_num() const {
     return m_node_num;
 }
 
+// get the row number of the input matrix
+int
+input_row() const {
+    return m_row;
+}
+
+// get the col number of the input matrix
+int
+input_col() const {
+    return m_col;
+}
+
+// get the row number of the output matrix
+int
+output_row() const {
+    return m_output_row;
+}
+    
+// get the col number of the output matrix
+int
+output_col() const {
+    return m_output_col;
+}
+
 std::vector<Eigen::MatrixXd>
 Layer::input() const {
     return m_input;

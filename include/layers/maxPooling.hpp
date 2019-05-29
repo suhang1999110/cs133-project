@@ -9,7 +9,10 @@ MaxPooling::MaxPooling() {}
 MaxPooling::~MaxPooling() {}
 
 void
-MaxPooling::init(double pool_row,
+MaxPooling::init(int cur_in_size,
+                 int cur_input_row,
+                 int cur_input_col,
+                 double pool_row,
                  double pool_col,
                  std::string padding,
                  std::string name) {
@@ -18,14 +21,18 @@ MaxPooling::init(double pool_row,
     m_padding = padding;
     m_name = name;
     m_type = Layer::Pooling;
+
+    m_in_size = cur_in_size;
+    m_row = cur_input_row;
+    m_col = cur_input_col;
+    m_out_size = m_in_size;
+    m_output_row = m_row / m_pool_row;
+    m_output_col = m_col / m_pool_col;
 }
 
 void
 MaxPooling::forward(std::vector<Eigen::MatrixXd> input) {
-    m_in_size = input.size();
     m_input = input;
-    m_row = m_input[0].rows();
-    m_col = m_input[0].cols();
 
     for (int image = 0; image < m_in_size; ++image) {
         Eigen::MatrixXd pool_result((m_row / m_pool_row), (m_col / m_pool_col));
@@ -36,7 +43,6 @@ MaxPooling::forward(std::vector<Eigen::MatrixXd> input) {
         }
         m_output.push_back(pool_result);
     }
-    m_out_size = m_output.size();
 }
 
 #endif // CS133_LAYER_MAXPOOLING_IMPL_HPP

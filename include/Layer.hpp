@@ -41,6 +41,18 @@ public:
     /// get number of neuron
     int node_num() const {};
 
+    // get the row number of the input matrix
+    int input_row() const {};
+
+    // get the col number of the input matrix
+    int input_col() const {};
+
+    // get the row number of the output matrix
+    int output_row() const {};
+
+    // get the col number of the output matrix
+    int output_col() const {};
+
     /// get input
     std::vector<Eigen::MatrixXd> input() const {};
 
@@ -62,7 +74,14 @@ public:
 protected:
     /// number of neurons
     int m_node_num;
-
+    // the row number of the input matrix
+    int m_row;
+    // the col number of the input matrix
+    int m_col;
+    // the row number of the output matrix
+    int m_output_row;
+    // the col number of the output matrix
+    int m_output_col;
     /// input
     std::vector<Eigen::MatrixXd> m_input;
 

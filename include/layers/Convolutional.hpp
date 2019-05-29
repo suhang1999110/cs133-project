@@ -10,7 +10,10 @@ class Convolutional : public Layer {
 public:
     Convolutional();
     ~Convolutional();
-    void init(double node_num,
+    void init(int cur_in_size,
+              int cur_input_row,
+              int cur_input_col,
+              double node_num,
               double kernel_row,
               double kernel_col,
               double stride_row,
@@ -22,10 +25,6 @@ public:
     void forward(std::vector<Eigen::MatrixXd> input);
 
 private:
-    // the row number of the input matrix
-    int m_row;
-    // the col number of the input matrix
-    int m_col;
     std::vector<std::vector<Eigen::MartixXd>> m_kernel;
     int m_kernel_row;
     int m_kernel_col;
