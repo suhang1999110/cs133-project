@@ -83,7 +83,7 @@
             1,
             1
           ],
-          "padding": "valid",
+          "padding": "same",
           "data_format": "channels_last",
           "dilation_rate": [
             1,

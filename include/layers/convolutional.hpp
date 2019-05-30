@@ -61,7 +61,7 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
             image.block(2, 2, m_col - 4, m_col - 4) += input[i];
             m_input.push_back(image);
         }
-        // std::cout<< m_input[0] << std::endl;
+        std::cout<< m_input[0] << std::endl;
     }
     else if ( m_padding == std::string("same") ) {
         m_input = input;

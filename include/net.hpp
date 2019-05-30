@@ -207,7 +207,7 @@ Net::load_weights(const std::string & path){
     Value& layerWeights = doc[(*it)->get_name().c_str()]["weights"];
     Value& layerBias = doc[(*it)->get_name().c_str()]["bias"];
 
-  std::cout<<(*it)->get_name()<<"\n";
+  // std::cout<<(*it)->get_name()<<"\n";
     // determine layer type
     switch((*it)->get_type()){
       case Layer::Conv:{
@@ -242,18 +242,18 @@ Net::load_weights(const std::string & path){
         Eigen::MatrixXd bias((*it)->node_num(), 1);
         Dense* denseLayer = (Dense*)(*it);
 
-        std::cout<<"input row: "<<(*it)->input_row()<<"\n";
+        // std::cout<<"input row: "<<(*it)->input_row()<<"\n";
 
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){
-            Value& temp = layerWeights[i];
-            std::cout<<j<<"! ";
-            std::cout<<"\n\nhehe\n\n";
-            weights(i,j) = temp[j].GetDouble();
-            std::cout<<j<<") ";
+            // Value& temp = layerWeights[i];
+            // std::cout<<j<<"! ";
+            // std::cout<<"\n\nhehe\n\n";
+            // weights(i,j) = temp[j].GetDouble();
+            // std::cout<<j<<") ";
 
-            // weights(i,j) = layerWeights[i][j].GetDouble();
+            weights(i,j) = layerWeights[i][j].GetDouble(); 
           }
           // set bias
           bias(i) = layerBias[i].GetDouble();
