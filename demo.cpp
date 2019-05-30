@@ -47,10 +47,12 @@ int main(){
     }
 
     Eigen::MatrixXd output = net.forward(input);
-
+    //std::cout << output.rows() << std::endl;
+    //std::cout << output.cols() << std::endl;
     int result;
-    int err = 10;
-    for(int i = 0; i < 10; ++i) {
+    double err = 10;
+    for (int i = 0; i < 10; ++i) {
+      std::cout << "The chance of being number " << i << " equals " << output(i, 0) << std::endl;
       if ( abs(output(i, 0) - 1) < err ) {
           err = abs(output(i, 0) - 1);
           result = i;
