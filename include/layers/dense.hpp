@@ -12,15 +12,16 @@ Dense::init(int cur_in_size,
             int cur_input_row,
             int cur_input_col,
             int node_num,
-            int kernel_row,
-            int kernel_col,
-            int stride_row,
-            int stride_col,
-            std::string padding,
+            int non_arg1,
+            int non_arg2,
+            int non_arg3,
+            int non_arg4,
+            std::string non_arg5,
             std::string name) {
     m_node_num = node_num;
     m_name = name;
     m_type = Layer::Dense;
+
     m_in_size = cur_in_size;
     m_row = cur_input_row;
     m_col = cur_input_col;

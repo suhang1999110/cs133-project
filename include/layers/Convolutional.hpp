@@ -5,7 +5,6 @@
 
 #include "../Layer.hpp"
 
-
 ///@brief Class of convolutional layer
 ///
 /// Doing convolution for the input data

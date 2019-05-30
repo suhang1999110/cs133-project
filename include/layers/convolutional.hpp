@@ -30,17 +30,15 @@ Convolutional::init(int cur_in_size,
 
     m_in_size = cur_in_size;
     m_out_size = m_node_num;
-    if ( m_padding == std::string("same") ) {
-        // m_row = cur_input_row + 4;
-        // m_col = cur_input_col + 4;
-        m_row = cur_input_row + m_kernel_row - 1;
-        m_col = cur_input_col + m_kernel_col - 1;
+    if ( m_padding == std::string("valid") ) {
+        m_row = cur_input_row;
+        m_col = cur_input_col;
         m_output_row = m_row - m_kernel_row + m_stride_row;
         m_output_col = m_col - m_kernel_col + m_stride_col;
     }
-    else if ( m_padding == std::string("valid") ) {
-        m_row = cur_input_row;
-        m_col = cur_input_col;
+    else if ( m_padding == std::string("same") ) {
+        m_row = cur_input_row + m_kernel_row - 1;
+        m_col = cur_input_col + m_kernel_col - 1;
         m_output_row = m_row - m_kernel_row + m_stride_row;
         m_output_col = m_col - m_kernel_col + m_stride_col;
     }
@@ -55,22 +53,17 @@ Convolutional::init(std::vector<std::vector<Eigen::MatrixXd>> kernel,
 
 void
 Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
-    // deal with the input (need padding or not)
-
-    if ( m_padding == std::string("same") ) {
+    if ( m_padding == std::string("valid") ) {
+        m_input = input;
+    }
+    else if ( m_padding == std::string("same") ) {
         for (int i = 0; i < m_in_size; ++i) {
             Eigen::MatrixXd image = Eigen::MatrixXd::Zero(m_row, m_col);
-            // image.block(2, 2, m_col - 4, m_col - 4) += input[i];
-            image.block( (m_kernel_row - 1) / 2, (m_kernel_col - 1) / 2 , m_row - m_kernel_row + 1, m_col - m_kernel_col + 1 ) += input[i];
+            image.block((m_kernel_row - 1) / 2, (m_kernel_col - 1) / 2 , m_row - m_kernel_row + 1, m_col - m_kernel_col + 1) += input[i];
             m_input.push_back(image);
         }
-        //std::cout<< input[0] << std::endl;
-        //std::cout<< m_input[0] << std::endl;
     }
-    else if ( m_padding == std::string("valid") ) {
-        m_input = input;
-        // std::cout<< m_input[0] << std::endl;
-    }
+
     // compute the convolution
     for (int node = 0; node < m_node_num; ++node) {
         Eigen::MatrixXd node_output(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
@@ -93,7 +86,6 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
         }
         node_output.array() += m_bias[node];
         m_output.push_back(node_output);
-        //std::cout<< node_output << std::endl;
     }
 }
 

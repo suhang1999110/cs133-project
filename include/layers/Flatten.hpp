@@ -4,7 +4,6 @@
 /// This kind of layer is used to decrease the dimension
 /// of the input data, transfer the input data to a single 
 /// column vector
-
 #ifndef CS133_LAYER_FLATTEN_HPP
 #define CS133_LAYER_FLATTEN_HPP
 
@@ -22,12 +21,12 @@ public:
     void init(int cur_in_size,
               int cur_input_row,
               int cur_input_col,
-              int node_num,
-              int kernel_row,
-              int kernel_col,
-              int stride_row,
-              int stride_col,
-              std::string padding,
+              int non_arg1,
+              int non_arg2,
+              int non_arg3,
+              int non_arg4,
+              int non_arg5,
+              std::string non_arg6,
               std::string name);  ///< Initialize the layer with those arguments
     void forward(std::vector<Eigen::MatrixXd> input);  ///< Spread forward and get the response
 };

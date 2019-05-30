@@ -16,11 +16,11 @@ public:
     void init(int cur_in_size,
               int cur_input_row,
               int cur_input_col,
-              int node_num,
-              int kernel_row,
-              int kernel_col,
-              int stride_row,
-              int stride_col,
+              int non_arg1,
+              int pool_row,
+              int pool_col,
+              int non_arg2,
+              int non_arg3,
               std::string padding,
               std::string name);   ///< Initialize the layer with those arguments
     void forward(std::vector<Eigen::MatrixXd> input);  ///< Spread forward and get the response

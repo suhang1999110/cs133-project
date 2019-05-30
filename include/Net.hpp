@@ -9,6 +9,7 @@
 #include "layers/Dense.hpp"
 #include "layers/MaxPooling.hpp"
 #include "layers/Flatten.hpp"
+#include "activation/Identity.hpp"
 #include "activation/ReLU.hpp"
 #include "activation/Sigmoid.hpp"
 #include "activation/Softmax.hpp"

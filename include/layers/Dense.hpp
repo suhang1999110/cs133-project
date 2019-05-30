@@ -20,11 +20,11 @@ public:
               int cur_input_row,
               int cur_input_col,
               int node_num,
-              int kernel_row,
-              int kernel_col,
-              int stride_row,
-              int stride_col,
-              std::string padding,
+              int non_arg1,
+              int non_arg2,
+              int non_arg3,
+              int non_arg4,
+              std::string non_arg5,
               std::string name);  ///< Initialize the layer with those arguments
     void init(Eigen::MatrixXd weight, Eigen::MatrixXd bias);   ///< Initialize the layer with given kernel and bias
     void forward(std::vector<Eigen::MatrixXd> input);   ///< Spread forward and get the response
