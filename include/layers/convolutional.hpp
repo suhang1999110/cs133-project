@@ -66,14 +66,15 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
     }
     else if ( m_padding == std::string("valid") ) {
         m_input = input;
-        std::cout<< m_input[0] << std::endl;
+        // std::cout<< m_input[0] << std::endl;
     }
-
     // compute the convolution
     for (int node = 0; node < m_node_num; ++node) {
         Eigen::MatrixXd node_output(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
+        node_output.setZero();
         for (int image = 0; image < m_in_size; ++image) {
             Eigen::MatrixXd cov_result(m_row - m_kernel_row + 1, m_col - m_kernel_col + 1);
+            cov_result.setZero();
             for (int row = 0; row < m_row - m_kernel_row + 1; row += m_stride_row) {
                 for (int col = 0; col < m_col - m_kernel_col + 1; col += m_stride_col) {
                     double accumulation = 0;

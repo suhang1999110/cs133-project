@@ -10,8 +10,8 @@
 
 int main(){
   // file path
-  std::string model_path("resources/lenet_model.json");
-  std::string weights_path("resources/lenet_weights.json");
+  std::string model_path("resources/minimodel.json");
+  std::string weights_path("resources/miniweights.json");
   std::vector<std::string> input_path;
   // input_path.push_back("test/test.txt");
   input_path.push_back("test/test0.txt");
@@ -52,7 +52,7 @@ int main(){
     int result;
     double err = 10;
     for (int i = 0; i < 10; ++i) {
-      std::cout << "The chance of being number " << i << " equals " << output(i, 0) << std::endl;
+      // std::cout << "The chance of being number " << i << " equals " << output(i, 0) << std::endl;
       if ( abs(output(i, 0) - 1) < err ) {
           err = abs(output(i, 0) - 1);
           result = i;

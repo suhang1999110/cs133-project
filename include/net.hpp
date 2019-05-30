@@ -21,20 +21,19 @@ Net::init(const std::string & model_path, const std::string & weights_path){
   load_model(model_path);
 
 
-  // for(int i = 0;i < m_layers.size();++i){
-  //   std::cout<<i<<":   "<<m_layers[i]->get_name()<<std::endl;
-  //   std::cout<<"in size:  "<<m_layers[i]->in_size()<<std::endl;
-  //   std::cout<<"input row:  "<<m_layers[i]->input_row()<<std::endl;
-  //   std::cout<<"input col:  "<<m_layers[i]->input_col()<<std::endl;
-  //   std::cout<<"out size:  "<<m_layers[i]->out_size()<<std::endl;
-  //   std::cout<<"output row:  "<<m_layers[i]->output_row()<<std::endl;
-  //   std::cout<<"output col:  "<<m_layers[i]->output_col()<<std::endl;
-  //   std::cout<<"node num:  "<<m_layers[i]->node_num()<<std::endl;
-  //   std::cout<<std::endl;
-  // }
+  for(int i = 0;i < m_layers.size();++i){
+    std::cout<<i<<":   "<<m_layers[i]->get_name()<<std::endl;
+    std::cout<<"in size:  "<<m_layers[i]->in_size()<<std::endl;
+    std::cout<<"input row:  "<<m_layers[i]->input_row()<<std::endl;
+    std::cout<<"input col:  "<<m_layers[i]->input_col()<<std::endl;
+    std::cout<<"out size:  "<<m_layers[i]->out_size()<<std::endl;
+    std::cout<<"output row:  "<<m_layers[i]->output_row()<<std::endl;
+    std::cout<<"output col:  "<<m_layers[i]->output_col()<<std::endl;
+    std::cout<<"node num:  "<<m_layers[i]->node_num()<<std::endl;
+    std::cout<<std::endl;
+  }
 
   load_weights(weights_path);
-
 }
 
 Eigen::MatrixXd
@@ -49,6 +48,8 @@ Net::forward(const Eigen::MatrixXd & input){
     m_layers[i]->forward(m_layers[i - 1]->output());
   }
   
+  // std::cout<<"conv:\n"<<m_layers[0]->output()[0]<<"\n";
+
   // store the output of the last layer
   m_output = m_layers[num_layers() - 1]->output()[0];
   return m_output;
@@ -70,15 +71,22 @@ Net::load_model(const std::string & path){
   
   // layer message in json
   Value& jsonLayers = doc["config"]["layers"];
-
   // set input size of the net
-  int cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].GetInt();
-  int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
+  int cur_input_row, cur_input_col;
+
+  // cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].GetInt();
+  // cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
+  cur_input_row = 28;
+  cur_input_col = 28;
+  
+  // int cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].GetInt();
+  // int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
   int cur_input_num = 1;
 
 
   // parse each layer message in json
   for(int i = 0;i < jsonLayers.Size();++i){
+  // std::cout<<"\n\nhehe "<<jsonLayers[i]["class_name"].GetString()<<"\n\n";
     Layer * layer = nullptr;
     // determine layer type
     if(jsonLayers[i]["class_name"].GetString() == std::string("Conv2D")){
@@ -242,8 +250,8 @@ Net::load_weights(const std::string & path){
         Eigen::MatrixXd bias((*it)->node_num(), 1);
         Dense* denseLayer = (Dense*)(*it);
 
-        // std::cout<<"input row: "<<(*it)->input_row()<<"\n";
-
+        // std::cout<<"weights[0] size: "<<layerWeights[0].Size();
+        // std::cout<<"\ninput row: "<<(*it)->input_row()<<"\n";
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){

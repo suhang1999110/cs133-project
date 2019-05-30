@@ -31,6 +31,7 @@ Flatten::forward(std::vector<Eigen::MatrixXd> input) {
     m_input = input;
 
     Eigen::MatrixXd flatten_result((m_in_size * m_row * m_col) , 1);
+    flatten_result.setZero();
     for (int image = 0; image < m_in_size; ++image) {
         for (int row = 0; row < m_row; ++row) {
             for (int col = 0; col < m_col; ++col) {
