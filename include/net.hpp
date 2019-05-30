@@ -21,17 +21,17 @@ Net::init(const std::string & model_path, const std::string & weights_path){
   load_model(model_path);
 
 
-  for(int i = 0;i < m_layers.size();++i){
-    std::cout<<i<<":   "<<m_layers[i]->get_name()<<std::endl;
-    std::cout<<"in size:  "<<m_layers[i]->in_size()<<std::endl;
-    std::cout<<"input row:  "<<m_layers[i]->input_row()<<std::endl;
-    std::cout<<"input col:  "<<m_layers[i]->input_col()<<std::endl;
-    std::cout<<"out size:  "<<m_layers[i]->out_size()<<std::endl;
-    std::cout<<"output row:  "<<m_layers[i]->output_row()<<std::endl;
-    std::cout<<"output col:  "<<m_layers[i]->output_col()<<std::endl;
-    std::cout<<"node num:  "<<m_layers[i]->node_num()<<std::endl;
-    std::cout<<std::endl;
-  }
+  // for(int i = 0;i < m_layers.size();++i){
+  //   std::cout<<i<<":   "<<m_layers[i]->get_name()<<std::endl;
+  //   std::cout<<"in size:  "<<m_layers[i]->in_size()<<std::endl;
+  //   std::cout<<"input row:  "<<m_layers[i]->input_row()<<std::endl;
+  //   std::cout<<"input col:  "<<m_layers[i]->input_col()<<std::endl;
+  //   std::cout<<"out size:  "<<m_layers[i]->out_size()<<std::endl;
+  //   std::cout<<"output row:  "<<m_layers[i]->output_row()<<std::endl;
+  //   std::cout<<"output col:  "<<m_layers[i]->output_col()<<std::endl;
+  //   std::cout<<"node num:  "<<m_layers[i]->node_num()<<std::endl;
+  //   std::cout<<std::endl;
+  // }
 
   load_weights(weights_path);
 }
@@ -79,10 +79,7 @@ Net::load_model(const std::string & path){
   cur_input_row = 28;
   cur_input_col = 28;
   
-  // int cur_input_row = jsonLayers[0]["config"]["batch_input_shape"][1].GetInt();
-  // int cur_input_col = jsonLayers[0]["config"]["batch_input_shape"][2].GetInt();
   int cur_input_num = 1;
-
 
   // parse each layer message in json
   for(int i = 0;i < jsonLayers.Size();++i){
@@ -122,6 +119,8 @@ Net::load_model(const std::string & path){
       }
       // initialize activation layer and add it to the net
       add_layer(act);
+
+      std::cout<<"\n"<<act->get_name();
 
     } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
       layer = new MaxPooling();
