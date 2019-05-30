@@ -20,18 +20,19 @@ y_test = utils.to_categorical(y_test, 10)
 
 # build model
 model = Sequential()
-model.add(Conv2D(5, (5, 5), activation='relu', input_shape=(28, 28, 1), padding='valid'))
+model.add(Conv2D(6, (5, 5), activation='relu', input_shape=(28, 28, 1), padding='valid'))
 model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
-# model.add(Conv2D(1, (5, 5), activation='relu', padding='same'))
+model.add(Conv2D(1, (5, 5), activation='relu', padding='same'))
 # model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
 model.add(Flatten())
-# model.add(Dense(20, activation='relu'))
+model.add(Dense(120, activation='relu'))
+model.add(Dense(84, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=['accuracy'])
 
 # train model
-model.fit(x_train, y_train, batch_size=64, epochs=3, validation_data=(x_test,y_test))
+model.fit(x_train, y_train, batch_size=64, epochs=10, validation_data=(x_test,y_test))
 
 # save model
 # model.save('model.h5')

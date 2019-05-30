@@ -120,8 +120,6 @@ Net::load_model(const std::string & path){
       // initialize activation layer and add it to the net
       add_layer(act);
 
-      std::cout<<"\n"<<act->get_name();
-
     } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
       layer = new MaxPooling();
       layer->init(cur_input_num,
