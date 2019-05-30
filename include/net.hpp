@@ -19,7 +19,22 @@ Net::~Net(){
 void
 Net::init(const std::string & model_path, const std::string & weights_path){
   load_model(model_path);
+
+
+  // for(int i = 0;i < m_layers.size();++i){
+  //   std::cout<<i<<":   "<<m_layers[i]->get_name()<<std::endl;
+  //   std::cout<<"in size:  "<<m_layers[i]->in_size()<<std::endl;
+  //   std::cout<<"input row:  "<<m_layers[i]->input_row()<<std::endl;
+  //   std::cout<<"input col:  "<<m_layers[i]->input_col()<<std::endl;
+  //   std::cout<<"out size:  "<<m_layers[i]->out_size()<<std::endl;
+  //   std::cout<<"output row:  "<<m_layers[i]->output_row()<<std::endl;
+  //   std::cout<<"output col:  "<<m_layers[i]->output_col()<<std::endl;
+  //   std::cout<<"node num:  "<<m_layers[i]->node_num()<<std::endl;
+  //   std::cout<<std::endl;
+  // }
+
   load_weights(weights_path);
+
 }
 
 Eigen::MatrixXd
@@ -98,7 +113,6 @@ Net::load_model(const std::string & path){
         act->init(0,0,0,0,0,0,0,0,"","sigmoid");
       }
       // initialize activation layer and add it to the net
-      std::cout<<act->get_type();
       add_layer(act);
 
     } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
@@ -193,6 +207,7 @@ Net::load_weights(const std::string & path){
     Value& layerWeights = doc[(*it)->get_name().c_str()]["weights"];
     Value& layerBias = doc[(*it)->get_name().c_str()]["bias"];
 
+  std::cout<<(*it)->get_name()<<"\n";
     // determine layer type
     switch((*it)->get_type()){
       case Layer::Conv:{
@@ -227,10 +242,18 @@ Net::load_weights(const std::string & path){
         Eigen::MatrixXd bias((*it)->node_num(), 1);
         Dense* denseLayer = (Dense*)(*it);
 
+        std::cout<<"input row: "<<(*it)->input_row()<<"\n";
+
         for(size_t i = 0;i < (*it)->node_num();++i){
           // set weights
           for(size_t j = 0;j < (*it)->input_row();++j){
-            weights(i,j) = layerWeights[i][j].GetDouble();
+            Value& temp = layerWeights[i];
+            std::cout<<j<<"! ";
+            std::cout<<"\n\nhehe\n\n";
+            weights(i,j) = temp[j].GetDouble();
+            std::cout<<j<<") ";
+
+            // weights(i,j) = layerWeights[i][j].GetDouble();
           }
           // set bias
           bias(i) = layerBias[i].GetDouble();

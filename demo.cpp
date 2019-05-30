@@ -10,9 +10,10 @@
 
 int main(){
   // file path
-  std::string model_path("resources/model.json");
-  std::string weights_path("resources/weights.json");
+  std::string model_path("resources/lenet_model.json");
+  std::string weights_path("resources/lenet_weights.json");
   std::vector<std::string> input_path;
+  // input_path.push_back("test/test.txt");
   input_path.push_back("test/test0.txt");
   input_path.push_back("test/test1.txt");
   input_path.push_back("test/test2.txt");
