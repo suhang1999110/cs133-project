@@ -12,11 +12,11 @@ void
 Convolutional::init(int cur_in_size,
                     int cur_input_row,
                     int cur_input_col,
-                    double node_num,
-                    double kernel_row,
-                    double kernel_col,
-                    double stride_row,
-                    double stride_col,
+                    int node_num,
+                    int kernel_row,
+                    int kernel_col,
+                    int stride_row,
+                    int stride_col,
                     std::string padding,
                     std::string name) {
     m_node_num = node_num;
@@ -61,7 +61,7 @@ Convolutional::forward(std::vector<Eigen::MatrixXd> input) {
             image.block(2, 2, m_col - 4, m_col - 4) += input[i];
             m_input.push_back(image);
         }
-        std::cout<< m_input[0] << std::endl;
+        // std::cout<< m_input[0] << std::endl;
     }
     else if ( m_padding == "same" ) {
         m_input = input;

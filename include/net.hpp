@@ -24,7 +24,8 @@ Net::init(const std::string & model_path, const std::string & weights_path){
 
 Eigen::MatrixXd
 Net::forward(const Eigen::MatrixXd & input){
-  std::vector<Eigen::MatrixXd> inputVec = {input};
+  std::vector<Eigen::MatrixXd> inputVec;
+  inputVec.push_back(input);
   // pass input to the first layer
   m_layers[0]->forward(inputVec);
 
@@ -35,7 +36,6 @@ Net::forward(const Eigen::MatrixXd & input){
   
   // store the output of the last layer
   m_output = m_layers[num_layers() - 1]->output()[0];
-  std::cout<<m_output<<std::endl;
   return m_output;
 }
 
@@ -98,6 +98,7 @@ Net::load_model(const std::string & path){
         act->init(0,0,0,0,0,0,0,0,"","sigmoid");
       }
       // initialize activation layer and add it to the net
+      std::cout<<act->get_type();
       add_layer(act);
 
     } else if(jsonLayers[i]["class_name"].GetString() == std::string("MaxPooling2D")){
