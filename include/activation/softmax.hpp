@@ -1,5 +1,5 @@
 // Implementation of the
-// Softmax activation funxtion
+// Softmax activation function
 
 Softmax::Softmax() {}
 
@@ -9,14 +9,15 @@ void
 Softmax::init(int cur_in_size,
               int cur_input_row,
               int cur_input_col,
-              double node_num,
-              double kernel_row,
-              double kernel_col,
-              double stride_row,
-              double stride_col,
+              int node_num,
+              int kernel_row,
+              int kernel_col,
+              int stride_row,
+              int stride_col,
               std::string padding,
               std::string name) {
     m_type = Layer::Softmax;
+    m_name = name;
 }
 
 void

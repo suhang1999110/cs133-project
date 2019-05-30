@@ -2,24 +2,23 @@
 // Sigmoid activation function
 
 
-Sigmoid::Sigmoid(){
-	// Not sure what to implement
-}
+Sigmoid::Sigmoid() {}
 
-Sigmoid::~Sigmoid(){}
+Sigmoid::~Sigmoid() {}
 
 void
 Sigmoid::init(int cur_in_size,
               int cur_input_row,
               int cur_input_col,
-              double node_num,
-              double kernel_row,
-              double kernel_col,
-              double stride_row,
-              double stride_col,
+              int node_num,
+              int kernel_row,
+              int kernel_col,
+              int stride_row,
+              int stride_col,
               std::string padding,
               std::string name) {
     m_type = Layer::Sigmoid;
+    m_name = name;
 }
 
 void

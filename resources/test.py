@@ -35,12 +35,21 @@ model = Sequential()
 # model.add(Dense(84, activation='relu'))
 # model.add(Dense(10, activation='softmax'))
 
-model.add(Conv2D(20, (5, 5), activation='relu', input_shape=(28, 28, 1)))
-model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
-model.add(Conv2D(50, (5, 5), activation='relu', padding='same'))
-model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
+# model.add(Conv2D(20, (5, 5), activation='relu', input_shape=(28, 28, 1)))
+# model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
+# model.add(Conv2D(50, (5, 5), activation='relu', padding='same'))
+# model.add(MaxPooling2D((2, 2), strides=2, padding='same'))
+# model.add(Flatten())
+# model.add(Dense(500, activation='relu'))
+# model.add(Dense(10, activation='softmax'))
+
+model.add(Conv2D(6, kernel_size=(5, 5), activation='relu', input_shape=(28, 28, 1)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(16, (5, 5), activation='relu', padding='same'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-model.add(Dense(500, activation='relu'))
+model.add(Dense(120, activation='relu'))
+model.add(Dense(84, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=['accuracy'])
@@ -49,9 +58,9 @@ model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=['accura
 model.fit(x_train, y_train, batch_size=64, epochs=5, validation_data=(x_test,y_test))
 
 # save model
-model.save('model.h5')
-model.save_weights('weights.h5')
-with open('model.json', 'w') as json:
+# model.save('lenet_model.h5')
+model.save_weights('lenet_weights.h5')
+with open('lenet_model.json', 'w') as json:
     json.write(model.to_json())
 
 # save weights
