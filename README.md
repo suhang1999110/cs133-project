@@ -4,61 +4,150 @@
 **Generic implementation of a neural network**
 
 -----
-1. Build a C++ library that
 
-   * can load a pre-trained network definition file
-   * contains an abstract definition of common layers and the composing elements
-     + Linear transformation, convolutions
-     + Response functions, output layers
-     + Fully connected layers
-   * initializes concrete layers of the network with a suitable programming technique(e.g. factory method)
-   * applies it to some data
+## Introduction
 
-2. Examples should include common application scenario given by a simple image classifier
-     * Character recognition (see MNIST)
-3. Free to add alternative classification tasks
-     * Stick to simple cases with "standard" networks
+This project is a C++ header only library that can load a pre-trained network definition file and perform forward propagation with given input.
 
-## Roadmap:
+![ClassDiagram](doc/ClassDiagram.png)
 
-:heavy_check_mark: Build and train model in Python
+## Quick Start
 
-:heavy_check_mark: Convert model into JSON file
 
-:heavy_check_mark: Build model framework in C++
+***model.json*** and ***weights.json*** are pretrained network definition file. ****.png"*** are 28×28 MNIST images.
 
-:heavy_check_mark: Initialize the neural network with JSON file
 
-:heavy_check_mark: Test the neural network with given images
+```C++
+#include "../include/Net.hpp"
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <Eigen/Core>
+#include <pybind11/embed.h>
+#include <pybind11/pybind11.h>
 
-## reference:
+using namespace std;
+namespace py = pybind11;
+using namespace py::literals;
 
-**Github:**
-- [C++ implementation of multi-layer feed forward neural networks with back propagation algorithm.](https://github.com/alelouis/Feed-Forward-Neural-Network)
+Eigen::MatrixXd convert(string);
 
-- [A header-only C++ library for deep neural networks](https://github.com/yixuan/MiniDNN)
-- [A simple deep neural network implemented in C++，based with OpenCV Mat matrix class](https://github.com/LiuXiaolong19920720/simple_net)
-- [Net-from-C-add](https://github.com/zcc199710/Net-from-C-add)
-- [C++ json](https://github.com/nlohmann/json)
-- [header only, dependency-free deep learning framework in C++14](https://github.com/tiny-dnn/tiny-dnn)
+int main(){
+  py::scoped_interpreter guard{};
+  // file path
+  string model_path("model.json");
+  string weights_path("weights.json");
 
------
-**Blog**
-- [Neural Network introduction](https://blog.csdn.net/u014162133/article/details/81181194)
-- [CNN introduction](http://www.cnblogs.com/fydeblog/p/7450413.html)
-- [LeNet5 introduction](https://www.cnblogs.com/ranjiewen/articles/7467600.html)
-- [C++ implementation](https://mp.weixin.qq.com/s?__biz=MzU2MDAyNzk5MA==&mid=2247483953&idx=1&sn=6f09647ba35beaff6ac4965d78f645c7&chksm=fc0f0208cb788b1ee1fa0b62f386b23d3de58edd79c61f481fb6ccf04c2fcea4025cce6bc87e#rd)
-- [save keras model](https://blog.csdn.net/cymy001/article/details/78647640)
+  vector<string> input_path;
+  
+  input_path.push_back("0.png");
+  input_path.push_back("1.png");
+  input_path.push_back("2.png");
+  input_path.push_back("3.png");
+  input_path.push_back("4.png");
+  input_path.push_back("5.png");
+  input_path.push_back("6.png");
+  input_path.push_back("7.png");
+  input_path.push_back("8.png");
+  input_path.push_back("9.png");
 
------
-**Documents**
-- [keras](https://keras-cn.readthedocs.io/en/latest/)
-- [Doxygen](http://www.doxygen.nl/)
-- [JSON](https://nlohmann.github.io/json/)
-- [HDF5](https://portal.hdfgroup.org/display/HDF5)
+  for (auto it = input_path.begin(); it != input_path.end(); ++it) {
+    // LeNet-5
+    Net net;
+    net.init(model_path, weights_path);
 
------
-**Resources**
-- [MNIST DATABASE](http://yann.lecun.com/exdb/mnist/)
-- [MNIST images](https://www.kaggle.com/scolianni/mnistasjpg)
-- [CS231N](http://cs231n.github.io/convolutional-networks/)
+    Eigen::MatrixXd input = convert(*it);
+
+    Eigen::MatrixXd output = net.forward(input);
+    int result;
+    double err = 10;
+    for (int i = 0; i < 10; ++i) {
+      if ( abs(output(i, 0) - 1) < err ) {
+          err = abs(output(i, 0) - 1);
+          result = i;
+      }
+    }
+    cout << "The number in the picture is " << result << endl;
+  }
+
+  return 0;
+}
+
+```
+
+function *convert()* takes a **image file path** as input and returns an **Eigen Matrix** which represents the image.
+
+```C++
+Eigen::MatrixXd
+convert(string filename){
+  auto locals = py::dict("filename"_a = filename);
+  py::exec(R"(
+    from PIL import Image
+    import numpy as np
+    im = Image.open(filename)
+    im = im.convert('L')
+    width,height = im.size
+    data = list(im.getdata())
+
+    file = open(filename.split('.')[0] + '.txt','w')
+    for i in range(height):
+      for j in range(width):
+        file.write(str(data[i*width + j]))
+        file.write(' ')
+      file.write('\n')
+    file.close()
+    name = filename.split('.')[0] + '.txt'
+  )", py::globals(), locals);
+  
+  std::string name = locals["name"].cast<std::string>();
+  int height = locals["height"].cast<int>();
+  int width = locals["width"].cast<int>();
+
+  Eigen::MatrixXd mat(height, width);
+
+  ifstream fin(name);
+  for(int i = 0;i < height;++i){
+    for(int j = 0;j < width;++j){
+      double buffer;
+      fin>>buffer;
+      mat(i,j) = buffer / 255.0;
+    }
+  }
+  return mat;
+}
+
+
+```
+
+**Run demo.cpp**
+
+     make clean && make && ./demo
+
+
+
+## Supported networks
+
++ **layers**
+  - fully connected (Dense)
+  - convolution
+  - maxpooling
+  - flatten
++ **activation functions**
+  - softmax
+  - sigmoid
+  - relu
+  - identity
+
+## Dependencies
+
+- *Eigen*
+- *Rapidjson*
+- *pybind11* : needed in demo.cpp
+
+## Platforms
+
+Linux
+
+## Document
+
+The API reference page contains the document generated by Doxygen, including all the class APIs.

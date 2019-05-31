@@ -1,5 +1,3 @@
-// demo will be presented on 31st May
-
 #include "../include/Net.hpp"
 #include <iostream>
 #include <string>
