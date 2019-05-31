@@ -121,7 +121,7 @@ convert(string filename){
 
 **Run demo.cpp**
 
-     make clean && make && ./demo
+     cd demo && make clean && make && ./demo
 
 
 
