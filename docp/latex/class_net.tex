@@ -1,0 +1,168 @@
+\hypertarget{class_net}{}\section{Net Class Reference}
+\label{class_net}\index{Net@{Net}}
+
+
+Class of network, consists of several layers.  
+
+
+
+
+{\ttfamily \#include $<$net.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_net_aaad4df79dedd0dda74f7b9c061867338}{Net} ()
+\begin{DoxyCompactList}\small\item\em default constructord \end{DoxyCompactList}\item 
+\hyperlink{class_net_a517bf56cd781eafd5c7aabeca60b62b0}{$\sim$\+Net} ()
+\begin{DoxyCompactList}\small\item\em default deconstructor \end{DoxyCompactList}\item 
+void \hyperlink{class_net_a06cad1a8b674f37f82b9c818c5a2845d}{init} (const std\+::string \&model\+\_\+path, const std\+::string \&weights\+\_\+path)
+\item 
+Eigen\+::\+Matrix\+Xd \hyperlink{class_net_a0e710c3df8334ac43caa4693ce464546}{forward} (const Eigen\+::\+Matrix\+Xd \&input)
+\item 
+void \hyperlink{class_net_a81fa2c630d567b85e94a3ed007072007}{add\+\_\+layer} (\hyperlink{class_layer}{Layer} $\ast$layer)
+\begin{DoxyCompactList}\small\item\em add a layer to the network \end{DoxyCompactList}\item 
+void \hyperlink{class_net_a1ff26f5a15009acc7e093a27a076b374}{load\+\_\+model} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em read model from given path \end{DoxyCompactList}\item 
+void \hyperlink{class_net_a1d6d76c2c860f5dde0438b65d3b60d2e}{load\+\_\+weights} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em read weights from given path \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \hyperlink{class_net_af4a35015a68b1a2637ec07180ecc615e}{output} () const
+\begin{DoxyCompactList}\small\item\em return output \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{class_net_a85b0b4ea81ac28ab5bff04bae96dfb5a}{num\+\_\+layers} () const
+\begin{DoxyCompactList}\small\item\em return the number of layers \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class of network, consists of several layers. 
+
+Definition at line 23 of file net.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_net_aaad4df79dedd0dda74f7b9c061867338}\label{class_net_aaad4df79dedd0dda74f7b9c061867338}} 
+\index{Net@{Net}!Net@{Net}}
+\index{Net@{Net}!Net@{Net}}
+\subsubsection{\texorpdfstring{Net()}{Net()}}
+{\footnotesize\ttfamily Net\+::\+Net (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+default constructord 
+
+
+
+Definition at line 5 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a517bf56cd781eafd5c7aabeca60b62b0}\label{class_net_a517bf56cd781eafd5c7aabeca60b62b0}} 
+\index{Net@{Net}!````~Net@{$\sim$\+Net}}
+\index{````~Net@{$\sim$\+Net}!Net@{Net}}
+\subsubsection{\texorpdfstring{$\sim$\+Net()}{~Net()}}
+{\footnotesize\ttfamily Net\+::$\sim$\+Net (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+default deconstructor 
+
+
+
+Definition at line 7 of file net.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_net_a81fa2c630d567b85e94a3ed007072007}\label{class_net_a81fa2c630d567b85e94a3ed007072007}} 
+\index{Net@{Net}!add\+\_\+layer@{add\+\_\+layer}}
+\index{add\+\_\+layer@{add\+\_\+layer}!Net@{Net}}
+\subsubsection{\texorpdfstring{add\+\_\+layer()}{add\_layer()}}
+{\footnotesize\ttfamily void Net\+::add\+\_\+layer (\begin{DoxyParamCaption}\item[{\hyperlink{class_layer}{Layer} $\ast$}]{layer }\end{DoxyParamCaption})}
+
+
+
+add a layer to the network 
+
+
+
+Definition at line 37 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a0e710c3df8334ac43caa4693ce464546}\label{class_net_a0e710c3df8334ac43caa4693ce464546}} 
+\index{Net@{Net}!forward@{forward}}
+\index{forward@{forward}!Net@{Net}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Net\+::forward (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xd \&}]{input }\end{DoxyParamCaption})}
+
+compute the ouput of the entire network return the output matrix 
+
+Definition at line 21 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a06cad1a8b674f37f82b9c818c5a2845d}\label{class_net_a06cad1a8b674f37f82b9c818c5a2845d}} 
+\index{Net@{Net}!init@{init}}
+\index{init@{init}!Net@{Net}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Net\+::init (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{model\+\_\+path,  }\item[{const std\+::string \&}]{weights\+\_\+path }\end{DoxyParamCaption})}
+
+initialzie all the hidden layers with given the path of model and weights J\+S\+ON format by default a wrapper of \hyperlink{class_net_a1ff26f5a15009acc7e093a27a076b374}{load\+\_\+model()} and load\+\_\+weights 
+
+Definition at line 15 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a1ff26f5a15009acc7e093a27a076b374}\label{class_net_a1ff26f5a15009acc7e093a27a076b374}} 
+\index{Net@{Net}!load\+\_\+model@{load\+\_\+model}}
+\index{load\+\_\+model@{load\+\_\+model}!Net@{Net}}
+\subsubsection{\texorpdfstring{load\+\_\+model()}{load\_model()}}
+{\footnotesize\ttfamily void Net\+::load\+\_\+model (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+read model from given path 
+
+
+
+Definition at line 42 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a1d6d76c2c860f5dde0438b65d3b60d2e}\label{class_net_a1d6d76c2c860f5dde0438b65d3b60d2e}} 
+\index{Net@{Net}!load\+\_\+weights@{load\+\_\+weights}}
+\index{load\+\_\+weights@{load\+\_\+weights}!Net@{Net}}
+\subsubsection{\texorpdfstring{load\+\_\+weights()}{load\_weights()}}
+{\footnotesize\ttfamily void Net\+::load\+\_\+weights (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+read weights from given path 
+
+
+
+Definition at line 166 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_a85b0b4ea81ac28ab5bff04bae96dfb5a}\label{class_net_a85b0b4ea81ac28ab5bff04bae96dfb5a}} 
+\index{Net@{Net}!num\+\_\+layers@{num\+\_\+layers}}
+\index{num\+\_\+layers@{num\+\_\+layers}!Net@{Net}}
+\subsubsection{\texorpdfstring{num\+\_\+layers()}{num\_layers()}}
+{\footnotesize\ttfamily size\+\_\+t Net\+::num\+\_\+layers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+return the number of layers 
+
+
+
+Definition at line 231 of file net.\+hpp.
+
+\mbox{\Hypertarget{class_net_af4a35015a68b1a2637ec07180ecc615e}\label{class_net_af4a35015a68b1a2637ec07180ecc615e}} 
+\index{Net@{Net}!output@{output}}
+\index{output@{output}!Net@{Net}}
+\subsubsection{\texorpdfstring{output()}{output()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Net\+::output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+return output 
+
+
+
+Definition at line 226 of file net.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/\hyperlink{_net_8hpp}{net.\+hpp}\end{DoxyCompactItemize}

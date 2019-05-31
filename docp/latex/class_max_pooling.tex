@@ -1,0 +1,100 @@
+\hypertarget{class_max_pooling}{}\section{Max\+Pooling Class Reference}
+\label{class_max_pooling}\index{Max\+Pooling@{Max\+Pooling}}
+
+
+{\ttfamily \#include $<$Max\+Pooling.\+hpp$>$}
+
+
+
+Inheritance diagram for Max\+Pooling\+:
+% FIG 0
+
+
+Collaboration diagram for Max\+Pooling\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_max_pooling_a30af265648a9a66ab4e6fd323a9b4027}{Max\+Pooling} ()
+\item 
+\hyperlink{class_max_pooling_aa2597b9c0c1ec6ca99053da08df5f628}{$\sim$\+Max\+Pooling} ()
+\item 
+void \hyperlink{class_max_pooling_ae1834354ff21a90fe14d1a392e923fc4}{init} (int cur\+\_\+in\+\_\+size, int cur\+\_\+input\+\_\+row, int cur\+\_\+input\+\_\+col, double \hyperlink{class_layer_a2f19878482d098654fb084b9c21b72ed}{node\+\_\+num}, double kernel\+\_\+row, double kernel\+\_\+col, double stride\+\_\+row, double stride\+\_\+col, std\+::string padding, std\+::string name)
+\begin{DoxyCompactList}\small\item\em initialize the parameters (including input size, output size, number of nodes etc.) \end{DoxyCompactList}\item 
+void \hyperlink{class_max_pooling_ae8556d4b6e3b583d02386b9b71b53a80}{forward} (std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$ \hyperlink{class_layer_a5213366d9a5a7317c5d40d9efdcfa623}{input})
+\begin{DoxyCompactList}\small\item\em compute the output of this layer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 9 of file Max\+Pooling.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_max_pooling_a30af265648a9a66ab4e6fd323a9b4027}\label{class_max_pooling_a30af265648a9a66ab4e6fd323a9b4027}} 
+\index{Max\+Pooling@{Max\+Pooling}!Max\+Pooling@{Max\+Pooling}}
+\index{Max\+Pooling@{Max\+Pooling}!Max\+Pooling@{Max\+Pooling}}
+\subsubsection{\texorpdfstring{Max\+Pooling()}{MaxPooling()}}
+{\footnotesize\ttfamily Max\+Pooling\+::\+Max\+Pooling (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6 of file Max\+Pooling.\+hpp.
+
+\mbox{\Hypertarget{class_max_pooling_aa2597b9c0c1ec6ca99053da08df5f628}\label{class_max_pooling_aa2597b9c0c1ec6ca99053da08df5f628}} 
+\index{Max\+Pooling@{Max\+Pooling}!````~Max\+Pooling@{$\sim$\+Max\+Pooling}}
+\index{````~Max\+Pooling@{$\sim$\+Max\+Pooling}!Max\+Pooling@{Max\+Pooling}}
+\subsubsection{\texorpdfstring{$\sim$\+Max\+Pooling()}{~MaxPooling()}}
+{\footnotesize\ttfamily Max\+Pooling\+::$\sim$\+Max\+Pooling (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 9 of file Max\+Pooling.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_max_pooling_ae8556d4b6e3b583d02386b9b71b53a80}\label{class_max_pooling_ae8556d4b6e3b583d02386b9b71b53a80}} 
+\index{Max\+Pooling@{Max\+Pooling}!forward@{forward}}
+\index{forward@{forward}!Max\+Pooling@{Max\+Pooling}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily void Max\+Pooling\+::forward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+compute the output of this layer 
+
+
+
+Implements \hyperlink{class_layer_ac0b116d692ea457f8e7c0f79f7159004}{Layer}.
+
+
+
+Definition at line 37 of file Max\+Pooling.\+hpp.
+
+\mbox{\Hypertarget{class_max_pooling_ae1834354ff21a90fe14d1a392e923fc4}\label{class_max_pooling_ae1834354ff21a90fe14d1a392e923fc4}} 
+\index{Max\+Pooling@{Max\+Pooling}!init@{init}}
+\index{init@{init}!Max\+Pooling@{Max\+Pooling}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Max\+Pooling\+::init (\begin{DoxyParamCaption}\item[{int}]{cur\+\_\+in\+\_\+size,  }\item[{int}]{cur\+\_\+input\+\_\+row,  }\item[{int}]{cur\+\_\+input\+\_\+col,  }\item[{double}]{node\+\_\+num,  }\item[{double}]{kernel\+\_\+row,  }\item[{double}]{kernel\+\_\+col,  }\item[{double}]{stride\+\_\+row,  }\item[{double}]{stride\+\_\+col,  }\item[{std\+::string}]{padding,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+initialize the parameters (including input size, output size, number of nodes etc.) 
+
+
+
+Implements \hyperlink{class_layer_aab662b9c8e61cd7375cbb4413d2e3037}{Layer}.
+
+
+
+Definition at line 12 of file Max\+Pooling.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/layers/\hyperlink{max_pooling_8hpp}{Max\+Pooling.\+hpp}\end{DoxyCompactItemize}

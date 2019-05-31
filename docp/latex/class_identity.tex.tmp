@@ -1,0 +1,44 @@
+\hypertarget{class_identity}{}\section{Identity Class Reference}
+\label{class_identity}\index{Identity@{Identity}}
+
+
+identity activation function  
+
+
+
+
+{\ttfamily \#include $<$identity.\+hpp$>$}
+
+
+
+Inheritance diagram for Identity\+:
+% FIG 0
+
+
+Collaboration diagram for Identity\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_identity_a160593ab7066d1ce0677a75bd4263d2f}\label{class_identity_a160593ab7066d1ce0677a75bd4263d2f}} 
+\hyperlink{class_identity_a160593ab7066d1ce0677a75bd4263d2f}{Identity} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_identity_ae2d2f09e464b093543e398e42669088c}\label{class_identity_ae2d2f09e464b093543e398e42669088c}} 
+\hyperlink{class_identity_ae2d2f09e464b093543e398e42669088c}{$\sim$\+Identity} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_identity_a6299db25f3feaa6a53f2029334aca689}\label{class_identity_a6299db25f3feaa6a53f2029334aca689}} 
+void \hyperlink{class_identity_a6299db25f3feaa6a53f2029334aca689}{init} ()
+\begin{DoxyCompactList}\small\item\em Function of initialize the class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_identity_a3d3345d67d21ec7b491597673d85c85a}\label{class_identity_a3d3345d67d21ec7b491597673d85c85a}} 
+void \hyperlink{class_identity_a3d3345d67d21ec7b491597673d85c85a}{forward} ()
+\begin{DoxyCompactList}\small\item\em forward spread of the nework \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+identity activation function 
+
+As child class of layer 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/activation/identity.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,115 @@
+\hypertarget{class_relu}{}\section{Relu Class Reference}
+\label{class_relu}\index{Relu@{Relu}}
+
+
+Activation function of Re\+LU.  
+
+
+
+
+{\ttfamily \#include $<$Re\+L\+U.\+hpp$>$}
+
+
+
+Inheritance diagram for Relu\+:
+% FIG 0
+
+
+Collaboration diagram for Relu\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_relu_ade6da5fa61d942a8f50d661dc997a985}{Relu} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_relu_a5be6c8bbdae0dd17597cfeaad4eee717}{$\sim$\+Relu} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_relu_a3efe8891f86dea80500302d7cd9fe605}{init} (int cur\+\_\+in\+\_\+size, int cur\+\_\+input\+\_\+row, int cur\+\_\+input\+\_\+col, double \hyperlink{class_layer_a2f19878482d098654fb084b9c21b72ed}{node\+\_\+num}, double kernel\+\_\+row, double kernel\+\_\+col, double stride\+\_\+row, double stride\+\_\+col, std\+::string padding, std\+::string name)
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{class_layer}{Layer} according to args. \end{DoxyCompactList}\item 
+void \hyperlink{class_relu_affdc902d266350bc024e31836fa2395b}{forward} (std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$ \hyperlink{class_layer_a5213366d9a5a7317c5d40d9efdcfa623}{input})
+\begin{DoxyCompactList}\small\item\em Spread forward to generate response. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Activation function of Re\+LU. 
+
+Re\+LU function\+: f(x) = max(x,0) 
+
+Definition at line 12 of file Re\+L\+U.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_relu_ade6da5fa61d942a8f50d661dc997a985}\label{class_relu_ade6da5fa61d942a8f50d661dc997a985}} 
+\index{Relu@{Relu}!Relu@{Relu}}
+\index{Relu@{Relu}!Relu@{Relu}}
+\subsubsection{\texorpdfstring{Relu()}{Relu()}}
+{\footnotesize\ttfamily Relu\+::\+Relu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+
+Definition at line 5 of file Re\+L\+U.\+hpp.
+
+\mbox{\Hypertarget{class_relu_a5be6c8bbdae0dd17597cfeaad4eee717}\label{class_relu_a5be6c8bbdae0dd17597cfeaad4eee717}} 
+\index{Relu@{Relu}!````~Relu@{$\sim$\+Relu}}
+\index{````~Relu@{$\sim$\+Relu}!Relu@{Relu}}
+\subsubsection{\texorpdfstring{$\sim$\+Relu()}{~Relu()}}
+{\footnotesize\ttfamily Relu\+::$\sim$\+Relu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+Definition at line 7 of file Re\+L\+U.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_relu_affdc902d266350bc024e31836fa2395b}\label{class_relu_affdc902d266350bc024e31836fa2395b}} 
+\index{Relu@{Relu}!forward@{forward}}
+\index{forward@{forward}!Relu@{Relu}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily void Relu\+::forward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Spread forward to generate response. 
+
+
+
+Implements \hyperlink{class_layer_ac0b116d692ea457f8e7c0f79f7159004}{Layer}.
+
+
+
+Definition at line 24 of file Re\+L\+U.\+hpp.
+
+\mbox{\Hypertarget{class_relu_a3efe8891f86dea80500302d7cd9fe605}\label{class_relu_a3efe8891f86dea80500302d7cd9fe605}} 
+\index{Relu@{Relu}!init@{init}}
+\index{init@{init}!Relu@{Relu}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Relu\+::init (\begin{DoxyParamCaption}\item[{int}]{cur\+\_\+in\+\_\+size,  }\item[{int}]{cur\+\_\+input\+\_\+row,  }\item[{int}]{cur\+\_\+input\+\_\+col,  }\item[{double}]{node\+\_\+num,  }\item[{double}]{kernel\+\_\+row,  }\item[{double}]{kernel\+\_\+col,  }\item[{double}]{stride\+\_\+row,  }\item[{double}]{stride\+\_\+col,  }\item[{std\+::string}]{padding,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initialize the \hyperlink{class_layer}{Layer} according to args. 
+
+
+
+Implements \hyperlink{class_layer_aab662b9c8e61cd7375cbb4413d2e3037}{Layer}.
+
+
+
+Definition at line 10 of file Re\+L\+U.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/activation/\hyperlink{re_l_u_8hpp}{Re\+L\+U.\+hpp}\end{DoxyCompactItemize}

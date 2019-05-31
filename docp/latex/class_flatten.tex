@@ -1,0 +1,100 @@
+\hypertarget{class_flatten}{}\section{Flatten Class Reference}
+\label{class_flatten}\index{Flatten@{Flatten}}
+
+
+{\ttfamily \#include $<$Flatten.\+hpp$>$}
+
+
+
+Inheritance diagram for Flatten\+:
+% FIG 0
+
+
+Collaboration diagram for Flatten\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_flatten_ab8e78a47501be2fa2b7e34f9b92e491a}{Flatten} ()
+\item 
+\hyperlink{class_flatten_a5542c21b0de6d9fb820eb0616d32ea4d}{$\sim$\+Flatten} ()
+\item 
+void \hyperlink{class_flatten_af389526bc8d45a447eaf2a3f8336d2a8}{init} (int cur\+\_\+in\+\_\+size, int cur\+\_\+input\+\_\+row, int cur\+\_\+input\+\_\+col, double \hyperlink{class_layer_a2f19878482d098654fb084b9c21b72ed}{node\+\_\+num}, double kernel\+\_\+row, double kernel\+\_\+col, double stride\+\_\+row, double stride\+\_\+col, std\+::string padding, std\+::string name)
+\begin{DoxyCompactList}\small\item\em initialize the parameters (including input size, output size, number of nodes etc.) \end{DoxyCompactList}\item 
+void \hyperlink{class_flatten_acc0cfdfd9736b2908dae4ccf2006df02}{forward} (std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$ \hyperlink{class_layer_a5213366d9a5a7317c5d40d9efdcfa623}{input})
+\begin{DoxyCompactList}\small\item\em compute the output of this layer \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 6 of file Flatten.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_flatten_ab8e78a47501be2fa2b7e34f9b92e491a}\label{class_flatten_ab8e78a47501be2fa2b7e34f9b92e491a}} 
+\index{Flatten@{Flatten}!Flatten@{Flatten}}
+\index{Flatten@{Flatten}!Flatten@{Flatten}}
+\subsubsection{\texorpdfstring{Flatten()}{Flatten()}}
+{\footnotesize\ttfamily Flatten\+::\+Flatten (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4 of file Flatten.\+hpp.
+
+\mbox{\Hypertarget{class_flatten_a5542c21b0de6d9fb820eb0616d32ea4d}\label{class_flatten_a5542c21b0de6d9fb820eb0616d32ea4d}} 
+\index{Flatten@{Flatten}!````~Flatten@{$\sim$\+Flatten}}
+\index{````~Flatten@{$\sim$\+Flatten}!Flatten@{Flatten}}
+\subsubsection{\texorpdfstring{$\sim$\+Flatten()}{~Flatten()}}
+{\footnotesize\ttfamily Flatten\+::$\sim$\+Flatten (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6 of file Flatten.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_flatten_acc0cfdfd9736b2908dae4ccf2006df02}\label{class_flatten_acc0cfdfd9736b2908dae4ccf2006df02}} 
+\index{Flatten@{Flatten}!forward@{forward}}
+\index{forward@{forward}!Flatten@{Flatten}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily void Flatten\+::forward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+compute the output of this layer 
+
+
+
+Implements \hyperlink{class_layer_ac0b116d692ea457f8e7c0f79f7159004}{Layer}.
+
+
+
+Definition at line 30 of file Flatten.\+hpp.
+
+\mbox{\Hypertarget{class_flatten_af389526bc8d45a447eaf2a3f8336d2a8}\label{class_flatten_af389526bc8d45a447eaf2a3f8336d2a8}} 
+\index{Flatten@{Flatten}!init@{init}}
+\index{init@{init}!Flatten@{Flatten}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Flatten\+::init (\begin{DoxyParamCaption}\item[{int}]{cur\+\_\+in\+\_\+size,  }\item[{int}]{cur\+\_\+input\+\_\+row,  }\item[{int}]{cur\+\_\+input\+\_\+col,  }\item[{double}]{node\+\_\+num,  }\item[{double}]{kernel\+\_\+row,  }\item[{double}]{kernel\+\_\+col,  }\item[{double}]{stride\+\_\+row,  }\item[{double}]{stride\+\_\+col,  }\item[{std\+::string}]{padding,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+initialize the parameters (including input size, output size, number of nodes etc.) 
+
+
+
+Implements \hyperlink{class_layer_aab662b9c8e61cd7375cbb4413d2e3037}{Layer}.
+
+
+
+Definition at line 9 of file Flatten.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/layers/\hyperlink{flatten_8hpp}{Flatten.\+hpp}\end{DoxyCompactItemize}

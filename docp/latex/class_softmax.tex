@@ -1,0 +1,115 @@
+\hypertarget{class_softmax}{}\section{Softmax Class Reference}
+\label{class_softmax}\index{Softmax@{Softmax}}
+
+
+Class of \hyperlink{class_softmax}{Softmax} activation function.  
+
+
+
+
+{\ttfamily \#include $<$softmax.\+hpp$>$}
+
+
+
+Inheritance diagram for Softmax\+:
+% FIG 0
+
+
+Collaboration diagram for Softmax\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_softmax_a884f7236004c14ed1b057b8e84f10861}{Softmax} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_softmax_a27af7a578766bd0762a76ad3d65ee579}{$\sim$\+Softmax} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_softmax_ae1a672376cc4a904cedb36ad8b8df717}{init} (int cur\+\_\+in\+\_\+size, int cur\+\_\+input\+\_\+row, int cur\+\_\+input\+\_\+col, double \hyperlink{class_layer_a2f19878482d098654fb084b9c21b72ed}{node\+\_\+num}, double kernel\+\_\+row, double kernel\+\_\+col, double stride\+\_\+row, double stride\+\_\+col, std\+::string padding, std\+::string name)
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{class_layer}{Layer} according to args. \end{DoxyCompactList}\item 
+void \hyperlink{class_softmax_a50805d8a6bc976b1ce73c3d87e1a2d5c}{forward} (std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$ \hyperlink{class_layer_a5213366d9a5a7317c5d40d9efdcfa623}{input})
+\begin{DoxyCompactList}\small\item\em Spread forward to generate response. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class of \hyperlink{class_softmax}{Softmax} activation function. 
+
+f(xi) = (e$^\wedge$(xi))/(sigma e$^\wedge$(xj)) 
+
+Definition at line 11 of file softmax.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_softmax_a884f7236004c14ed1b057b8e84f10861}\label{class_softmax_a884f7236004c14ed1b057b8e84f10861}} 
+\index{Softmax@{Softmax}!Softmax@{Softmax}}
+\index{Softmax@{Softmax}!Softmax@{Softmax}}
+\subsubsection{\texorpdfstring{Softmax()}{Softmax()}}
+{\footnotesize\ttfamily Softmax\+::\+Softmax (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+
+
+Definition at line 4 of file softmax.\+hpp.
+
+\mbox{\Hypertarget{class_softmax_a27af7a578766bd0762a76ad3d65ee579}\label{class_softmax_a27af7a578766bd0762a76ad3d65ee579}} 
+\index{Softmax@{Softmax}!````~Softmax@{$\sim$\+Softmax}}
+\index{````~Softmax@{$\sim$\+Softmax}!Softmax@{Softmax}}
+\subsubsection{\texorpdfstring{$\sim$\+Softmax()}{~Softmax()}}
+{\footnotesize\ttfamily Softmax\+::$\sim$\+Softmax (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+Definition at line 6 of file softmax.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_softmax_a50805d8a6bc976b1ce73c3d87e1a2d5c}\label{class_softmax_a50805d8a6bc976b1ce73c3d87e1a2d5c}} 
+\index{Softmax@{Softmax}!forward@{forward}}
+\index{forward@{forward}!Softmax@{Softmax}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily void Softmax\+::forward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Spread forward to generate response. 
+
+
+
+Implements \hyperlink{class_layer_ac0b116d692ea457f8e7c0f79f7159004}{Layer}.
+
+
+
+Definition at line 23 of file softmax.\+hpp.
+
+\mbox{\Hypertarget{class_softmax_ae1a672376cc4a904cedb36ad8b8df717}\label{class_softmax_ae1a672376cc4a904cedb36ad8b8df717}} 
+\index{Softmax@{Softmax}!init@{init}}
+\index{init@{init}!Softmax@{Softmax}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Softmax\+::init (\begin{DoxyParamCaption}\item[{int}]{cur\+\_\+in\+\_\+size,  }\item[{int}]{cur\+\_\+input\+\_\+row,  }\item[{int}]{cur\+\_\+input\+\_\+col,  }\item[{double}]{node\+\_\+num,  }\item[{double}]{kernel\+\_\+row,  }\item[{double}]{kernel\+\_\+col,  }\item[{double}]{stride\+\_\+row,  }\item[{double}]{stride\+\_\+col,  }\item[{std\+::string}]{padding,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initialize the \hyperlink{class_layer}{Layer} according to args. 
+
+
+
+Implements \hyperlink{class_layer_aab662b9c8e61cd7375cbb4413d2e3037}{Layer}.
+
+
+
+Definition at line 9 of file softmax.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/activation/\hyperlink{_softmax_8hpp}{softmax.\+hpp}\end{DoxyCompactItemize}

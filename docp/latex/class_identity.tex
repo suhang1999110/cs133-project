@@ -1,0 +1,115 @@
+\hypertarget{class_identity}{}\section{Identity Class Reference}
+\label{class_identity}\index{Identity@{Identity}}
+
+
+identity activation function  
+
+
+
+
+{\ttfamily \#include $<$identity.\+hpp$>$}
+
+
+
+Inheritance diagram for Identity\+:
+% FIG 0
+
+
+Collaboration diagram for Identity\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_identity_a160593ab7066d1ce0677a75bd4263d2f}{Identity} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_identity_ae2d2f09e464b093543e398e42669088c}{$\sim$\+Identity} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_identity_adcf6d70548e5f5d63d1919c79fb1bcce}{init} (int cur\+\_\+in\+\_\+size, int cur\+\_\+input\+\_\+row, int cur\+\_\+input\+\_\+col, double \hyperlink{class_layer_a2f19878482d098654fb084b9c21b72ed}{node\+\_\+num}, double kernel\+\_\+row, double kernel\+\_\+col, double stride\+\_\+row, double stride\+\_\+col, std\+::string padding, std\+::string name)
+\begin{DoxyCompactList}\small\item\em Function of initialize the class. \end{DoxyCompactList}\item 
+void \hyperlink{class_identity_af202a7a325b2db8939e00673877c6b2e}{forward} (std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$ \hyperlink{class_layer_a5213366d9a5a7317c5d40d9efdcfa623}{input})
+\begin{DoxyCompactList}\small\item\em forward spread of the nework \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+identity activation function 
+
+As child class of layer 
+
+Definition at line 11 of file identity.\+hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_identity_a160593ab7066d1ce0677a75bd4263d2f}\label{class_identity_a160593ab7066d1ce0677a75bd4263d2f}} 
+\index{Identity@{Identity}!Identity@{Identity}}
+\index{Identity@{Identity}!Identity@{Identity}}
+\subsubsection{\texorpdfstring{Identity()}{Identity()}}
+{\footnotesize\ttfamily Identity\+::\+Identity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Constructor. 
+
+Definition at line 5 of file identity.\+hpp.
+
+\mbox{\Hypertarget{class_identity_ae2d2f09e464b093543e398e42669088c}\label{class_identity_ae2d2f09e464b093543e398e42669088c}} 
+\index{Identity@{Identity}!````~Identity@{$\sim$\+Identity}}
+\index{````~Identity@{$\sim$\+Identity}!Identity@{Identity}}
+\subsubsection{\texorpdfstring{$\sim$\+Identity()}{~Identity()}}
+{\footnotesize\ttfamily Identity\+::$\sim$\+Identity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+Definition at line 8 of file identity.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_identity_af202a7a325b2db8939e00673877c6b2e}\label{class_identity_af202a7a325b2db8939e00673877c6b2e}} 
+\index{Identity@{Identity}!forward@{forward}}
+\index{forward@{forward}!Identity@{Identity}}
+\subsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily void Identity\+::forward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Eigen\+::\+Matrix\+Xd $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+forward spread of the nework 
+
+Spread foward to generate the response. 
+
+Implements \hyperlink{class_layer_ac0b116d692ea457f8e7c0f79f7159004}{Layer}.
+
+
+
+Definition at line 27 of file identity.\+hpp.
+
+\mbox{\Hypertarget{class_identity_adcf6d70548e5f5d63d1919c79fb1bcce}\label{class_identity_adcf6d70548e5f5d63d1919c79fb1bcce}} 
+\index{Identity@{Identity}!init@{init}}
+\index{init@{init}!Identity@{Identity}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Identity\+::init (\begin{DoxyParamCaption}\item[{int}]{cur\+\_\+in\+\_\+size,  }\item[{int}]{cur\+\_\+input\+\_\+row,  }\item[{int}]{cur\+\_\+input\+\_\+col,  }\item[{double}]{node\+\_\+num,  }\item[{double}]{kernel\+\_\+row,  }\item[{double}]{kernel\+\_\+col,  }\item[{double}]{stride\+\_\+row,  }\item[{double}]{stride\+\_\+col,  }\item[{std\+::string}]{padding,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function of initialize the class. 
+
+Initialize the class. 
+
+Implements \hyperlink{class_layer_aab662b9c8e61cd7375cbb4413d2e3037}{Layer}.
+
+
+
+Definition at line 12 of file identity.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/martin/\+C\+S133/\+Project/cs133-\/project/include/activation/\hyperlink{_identity_8hpp}{identity.\+hpp}\end{DoxyCompactItemize}
